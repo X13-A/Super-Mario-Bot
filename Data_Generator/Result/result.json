@@ -1,0 +1,2882 @@
+[
+    {
+        "image_path": "result_0.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 101,
+                "y": 49,
+                "width": 32,
+                "height": 28
+            }
+        ]
+    },
+    {
+        "image_path": "result_1.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 18,
+                "y": 65,
+                "width": 61,
+                "height": 49
+            }
+        ]
+    },
+    {
+        "image_path": "result_2.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 159,
+                "y": 148,
+                "width": 27,
+                "height": 38
+            }
+        ]
+    },
+    {
+        "image_path": "result_3.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 125,
+                "y": 141,
+                "width": 18,
+                "height": 21
+            }
+        ]
+    },
+    {
+        "image_path": "result_4.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 82,
+                "y": 80,
+                "width": 60,
+                "height": 68
+            }
+        ]
+    },
+    {
+        "image_path": "result_5.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 61,
+                "y": 162,
+                "width": 14,
+                "height": 18
+            }
+        ]
+    },
+    {
+        "image_path": "result_6.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 137,
+                "y": 169,
+                "width": 33,
+                "height": 29
+            }
+        ]
+    },
+    {
+        "image_path": "result_7.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 123,
+                "y": 179,
+                "width": 41,
+                "height": 35
+            }
+        ]
+    },
+    {
+        "image_path": "result_8.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 86,
+                "y": 33,
+                "width": 73,
+                "height": 80
+            }
+        ]
+    },
+    {
+        "image_path": "result_9.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 82,
+                "y": 187,
+                "width": 28,
+                "height": 27
+            }
+        ]
+    },
+    {
+        "image_path": "result_10.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 3,
+                "y": 72,
+                "width": 33,
+                "height": 46
+            }
+        ]
+    },
+    {
+        "image_path": "result_11.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 150,
+                "y": 100,
+                "width": 61,
+                "height": 65
+            }
+        ]
+    },
+    {
+        "image_path": "result_12.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 58,
+                "y": 138,
+                "width": 81,
+                "height": 72
+            }
+        ]
+    },
+    {
+        "image_path": "result_13.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 37,
+                "y": 20,
+                "width": 87,
+                "height": 74
+            }
+        ]
+    },
+    {
+        "image_path": "result_14.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 93,
+                "y": 130,
+                "width": 57,
+                "height": 50
+            }
+        ]
+    },
+    {
+        "image_path": "result_15.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 220,
+                "y": 40,
+                "width": 17,
+                "height": 15
+            }
+        ]
+    },
+    {
+        "image_path": "result_16.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 169,
+                "y": 92,
+                "width": 46,
+                "height": 64
+            }
+        ]
+    },
+    {
+        "image_path": "result_17.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 201,
+                "y": 138,
+                "width": 50,
+                "height": 37
+            }
+        ]
+    },
+    {
+        "image_path": "result_18.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 78,
+                "y": 227,
+                "width": 29,
+                "height": 23
+            }
+        ]
+    },
+    {
+        "image_path": "result_19.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 2,
+                "y": 96,
+                "width": 63,
+                "height": 70
+            }
+        ]
+    },
+    {
+        "image_path": "result_20.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 24,
+                "y": 68,
+                "width": 57,
+                "height": 57
+            }
+        ]
+    },
+    {
+        "image_path": "result_21.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 84,
+                "y": 75,
+                "width": 18,
+                "height": 18
+            }
+        ]
+    },
+    {
+        "image_path": "result_22.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 116,
+                "y": 58,
+                "width": 32,
+                "height": 26
+            }
+        ]
+    },
+    {
+        "image_path": "result_23.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 58,
+                "y": 135,
+                "width": 54,
+                "height": 65
+            }
+        ]
+    },
+    {
+        "image_path": "result_24.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 35,
+                "y": 100,
+                "width": 54,
+                "height": 47
+            }
+        ]
+    },
+    {
+        "image_path": "result_25.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 12,
+                "y": 84,
+                "width": 77,
+                "height": 66
+            }
+        ]
+    },
+    {
+        "image_path": "result_26.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 139,
+                "y": 85,
+                "width": 35,
+                "height": 48
+            }
+        ]
+    },
+    {
+        "image_path": "result_27.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 156,
+                "y": 147,
+                "width": 23,
+                "height": 32
+            }
+        ]
+    },
+    {
+        "image_path": "result_28.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 7,
+                "y": 65,
+                "width": 47,
+                "height": 34
+            }
+        ]
+    },
+    {
+        "image_path": "result_29.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 147,
+                "y": 101,
+                "width": 70,
+                "height": 84
+            }
+        ]
+    },
+    {
+        "image_path": "result_30.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 121,
+                "y": 21,
+                "width": 42,
+                "height": 42
+            }
+        ]
+    },
+    {
+        "image_path": "result_31.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 32,
+                "y": 42,
+                "width": 66,
+                "height": 54
+            }
+        ]
+    },
+    {
+        "image_path": "result_32.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 221,
+                "y": 144,
+                "width": 28,
+                "height": 28
+            }
+        ]
+    },
+    {
+        "image_path": "result_33.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 79,
+                "y": 112,
+                "width": 51,
+                "height": 49
+            }
+        ]
+    },
+    {
+        "image_path": "result_34.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 162,
+                "y": 57,
+                "width": 25,
+                "height": 30
+            }
+        ]
+    },
+    {
+        "image_path": "result_35.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 215,
+                "y": 23,
+                "width": 24,
+                "height": 20
+            }
+        ]
+    },
+    {
+        "image_path": "result_36.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 153,
+                "y": 109,
+                "width": 74,
+                "height": 85
+            }
+        ]
+    },
+    {
+        "image_path": "result_37.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 16,
+                "y": 8,
+                "width": 65,
+                "height": 50
+            }
+        ]
+    },
+    {
+        "image_path": "result_38.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 62,
+                "y": 20,
+                "width": 33,
+                "height": 32
+            }
+        ]
+    },
+    {
+        "image_path": "result_39.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 87,
+                "y": 136,
+                "width": 70,
+                "height": 76
+            }
+        ]
+    },
+    {
+        "image_path": "result_40.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 149,
+                "y": 41,
+                "width": 25,
+                "height": 29
+            }
+        ]
+    },
+    {
+        "image_path": "result_41.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 154,
+                "y": 77,
+                "width": 80,
+                "height": 84
+            }
+        ]
+    },
+    {
+        "image_path": "result_42.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 134,
+                "y": 19,
+                "width": 63,
+                "height": 73
+            }
+        ]
+    },
+    {
+        "image_path": "result_43.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 85,
+                "y": 178,
+                "width": 62,
+                "height": 61
+            }
+        ]
+    },
+    {
+        "image_path": "result_44.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 93,
+                "y": 178,
+                "width": 48,
+                "height": 47
+            }
+        ]
+    },
+    {
+        "image_path": "result_45.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 120,
+                "y": 46,
+                "width": 82,
+                "height": 67
+            }
+        ]
+    },
+    {
+        "image_path": "result_46.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 159,
+                "y": 125,
+                "width": 57,
+                "height": 51
+            }
+        ]
+    },
+    {
+        "image_path": "result_47.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 142,
+                "y": 184,
+                "width": 47,
+                "height": 47
+            }
+        ]
+    },
+    {
+        "image_path": "result_48.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 79,
+                "y": 140,
+                "width": 70,
+                "height": 62
+            }
+        ]
+    },
+    {
+        "image_path": "result_49.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 220,
+                "y": 181,
+                "width": 36,
+                "height": 34
+            }
+        ]
+    },
+    {
+        "image_path": "result_50.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 36,
+                "y": 150,
+                "width": 73,
+                "height": 58
+            }
+        ]
+    },
+    {
+        "image_path": "result_51.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 50,
+                "y": 176,
+                "width": 57,
+                "height": 40
+            }
+        ]
+    },
+    {
+        "image_path": "result_52.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 97,
+                "y": 74,
+                "width": 40,
+                "height": 50
+            }
+        ]
+    },
+    {
+        "image_path": "result_53.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 63,
+                "y": 126,
+                "width": 27,
+                "height": 34
+            }
+        ]
+    },
+    {
+        "image_path": "result_54.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 207,
+                "y": 152,
+                "width": 13,
+                "height": 18
+            }
+        ]
+    },
+    {
+        "image_path": "result_55.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 121,
+                "y": 24,
+                "width": 66,
+                "height": 50
+            }
+        ]
+    },
+    {
+        "image_path": "result_56.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 89,
+                "y": 64,
+                "width": 37,
+                "height": 44
+            }
+        ]
+    },
+    {
+        "image_path": "result_57.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 154,
+                "y": 40,
+                "width": 52,
+                "height": 69
+            }
+        ]
+    },
+    {
+        "image_path": "result_58.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 167,
+                "y": 19,
+                "width": 15,
+                "height": 20
+            }
+        ]
+    },
+    {
+        "image_path": "result_59.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 164,
+                "y": 110,
+                "width": 67,
+                "height": 81
+            }
+        ]
+    },
+    {
+        "image_path": "result_60.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 202,
+                "y": 143,
+                "width": 42,
+                "height": 58
+            }
+        ]
+    },
+    {
+        "image_path": "result_61.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 10,
+                "y": 46,
+                "width": 20,
+                "height": 17
+            }
+        ]
+    },
+    {
+        "image_path": "result_62.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 187,
+                "y": 87,
+                "width": 62,
+                "height": 74
+            }
+        ]
+    },
+    {
+        "image_path": "result_63.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 166,
+                "y": 148,
+                "width": 43,
+                "height": 59
+            }
+        ]
+    },
+    {
+        "image_path": "result_64.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 188,
+                "y": 28,
+                "width": 62,
+                "height": 71
+            }
+        ]
+    },
+    {
+        "image_path": "result_65.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 42,
+                "y": 49,
+                "width": 35,
+                "height": 47
+            }
+        ]
+    },
+    {
+        "image_path": "result_66.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 211,
+                "y": 148,
+                "width": 32,
+                "height": 44
+            }
+        ]
+    },
+    {
+        "image_path": "result_67.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 112,
+                "y": 62,
+                "width": 58,
+                "height": 73
+            }
+        ]
+    },
+    {
+        "image_path": "result_68.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 28,
+                "y": 36,
+                "width": 60,
+                "height": 76
+            }
+        ]
+    },
+    {
+        "image_path": "result_69.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 189,
+                "y": 125,
+                "width": 63,
+                "height": 69
+            }
+        ]
+    },
+    {
+        "image_path": "result_70.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 38,
+                "y": 143,
+                "width": 84,
+                "height": 73
+            }
+        ]
+    },
+    {
+        "image_path": "result_71.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 179,
+                "y": 191,
+                "width": 29,
+                "height": 26
+            }
+        ]
+    },
+    {
+        "image_path": "result_72.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 42,
+                "y": 150,
+                "width": 18,
+                "height": 18
+            }
+        ]
+    },
+    {
+        "image_path": "result_73.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 37,
+                "y": 104,
+                "width": 38,
+                "height": 37
+            }
+        ]
+    },
+    {
+        "image_path": "result_74.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 57,
+                "y": 85,
+                "width": 18,
+                "height": 16
+            }
+        ]
+    },
+    {
+        "image_path": "result_75.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 3,
+                "y": 195,
+                "width": 20,
+                "height": 20
+            }
+        ]
+    },
+    {
+        "image_path": "result_76.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 174,
+                "y": 118,
+                "width": 71,
+                "height": 66
+            }
+        ]
+    },
+    {
+        "image_path": "result_77.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 173,
+                "y": 163,
+                "width": 28,
+                "height": 21
+            }
+        ]
+    },
+    {
+        "image_path": "result_78.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 90,
+                "y": 118,
+                "width": 52,
+                "height": 63
+            }
+        ]
+    },
+    {
+        "image_path": "result_79.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 108,
+                "y": 128,
+                "width": 60,
+                "height": 56
+            }
+        ]
+    },
+    {
+        "image_path": "result_80.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 162,
+                "y": 93,
+                "width": 64,
+                "height": 49
+            }
+        ]
+    },
+    {
+        "image_path": "result_81.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 84,
+                "y": 36,
+                "width": 84,
+                "height": 78
+            }
+        ]
+    },
+    {
+        "image_path": "result_82.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 170,
+                "y": 118,
+                "width": 71,
+                "height": 75
+            }
+        ]
+    },
+    {
+        "image_path": "result_83.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 108,
+                "y": 160,
+                "width": 71,
+                "height": 54
+            }
+        ]
+    },
+    {
+        "image_path": "result_84.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 40,
+                "y": 33,
+                "width": 65,
+                "height": 62
+            }
+        ]
+    },
+    {
+        "image_path": "result_85.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 36,
+                "y": 39,
+                "width": 76,
+                "height": 68
+            }
+        ]
+    },
+    {
+        "image_path": "result_86.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 1,
+                "y": 99,
+                "width": 52,
+                "height": 67
+            }
+        ]
+    },
+    {
+        "image_path": "result_87.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 66,
+                "y": 36,
+                "width": 43,
+                "height": 34
+            }
+        ]
+    },
+    {
+        "image_path": "result_88.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 144,
+                "y": 18,
+                "width": 39,
+                "height": 29
+            }
+        ]
+    },
+    {
+        "image_path": "result_89.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 30,
+                "y": 94,
+                "width": 53,
+                "height": 73
+            }
+        ]
+    },
+    {
+        "image_path": "result_90.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 154,
+                "y": 21,
+                "width": 41,
+                "height": 57
+            }
+        ]
+    },
+    {
+        "image_path": "result_91.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 120,
+                "y": 207,
+                "width": 42,
+                "height": 38
+            }
+        ]
+    },
+    {
+        "image_path": "result_92.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 194,
+                "y": 48,
+                "width": 36,
+                "height": 27
+            }
+        ]
+    },
+    {
+        "image_path": "result_93.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 135,
+                "y": 86,
+                "width": 18,
+                "height": 22
+            }
+        ]
+    },
+    {
+        "image_path": "result_94.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 2,
+                "y": 219,
+                "width": 25,
+                "height": 21
+            }
+        ]
+    },
+    {
+        "image_path": "result_95.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 23,
+                "y": 87,
+                "width": 64,
+                "height": 70
+            }
+        ]
+    },
+    {
+        "image_path": "result_96.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 206,
+                "y": 1,
+                "width": 30,
+                "height": 40
+            }
+        ]
+    },
+    {
+        "image_path": "result_97.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 27,
+                "y": 160,
+                "width": 21,
+                "height": 25
+            }
+        ]
+    },
+    {
+        "image_path": "result_98.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 95,
+                "y": 107,
+                "width": 37,
+                "height": 38
+            }
+        ]
+    },
+    {
+        "image_path": "result_99.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 196,
+                "y": 227,
+                "width": 26,
+                "height": 22
+            }
+        ]
+    },
+    {
+        "image_path": "result_100.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 164,
+                "y": 160,
+                "width": 52,
+                "height": 57
+            }
+        ]
+    },
+    {
+        "image_path": "result_101.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 9,
+                "y": 131,
+                "width": 71,
+                "height": 66
+            }
+        ]
+    },
+    {
+        "image_path": "result_102.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 133,
+                "y": 30,
+                "width": 55,
+                "height": 61
+            }
+        ]
+    },
+    {
+        "image_path": "result_103.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 57,
+                "y": 5,
+                "width": 27,
+                "height": 23
+            }
+        ]
+    },
+    {
+        "image_path": "result_104.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 179,
+                "y": 70,
+                "width": 74,
+                "height": 61
+            }
+        ]
+    },
+    {
+        "image_path": "result_105.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 186,
+                "y": 56,
+                "width": 21,
+                "height": 18
+            }
+        ]
+    },
+    {
+        "image_path": "result_106.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 176,
+                "y": 134,
+                "width": 27,
+                "height": 31
+            }
+        ]
+    },
+    {
+        "image_path": "result_107.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 89,
+                "y": 156,
+                "width": 73,
+                "height": 68
+            }
+        ]
+    },
+    {
+        "image_path": "result_108.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 73,
+                "y": 163,
+                "width": 52,
+                "height": 65
+            }
+        ]
+    },
+    {
+        "image_path": "result_109.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 52,
+                "y": 67,
+                "width": 54,
+                "height": 55
+            }
+        ]
+    },
+    {
+        "image_path": "result_110.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 24,
+                "y": 82,
+                "width": 77,
+                "height": 69
+            }
+        ]
+    },
+    {
+        "image_path": "result_111.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 119,
+                "y": 183,
+                "width": 31,
+                "height": 33
+            }
+        ]
+    },
+    {
+        "image_path": "result_112.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 126,
+                "y": 5,
+                "width": 57,
+                "height": 50
+            }
+        ]
+    },
+    {
+        "image_path": "result_113.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 184,
+                "y": 152,
+                "width": 19,
+                "height": 25
+            }
+        ]
+    },
+    {
+        "image_path": "result_114.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 191,
+                "y": 124,
+                "width": 56,
+                "height": 70
+            }
+        ]
+    },
+    {
+        "image_path": "result_115.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 185,
+                "y": 23,
+                "width": 61,
+                "height": 64
+            }
+        ]
+    },
+    {
+        "image_path": "result_116.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 118,
+                "y": 179,
+                "width": 49,
+                "height": 47
+            }
+        ]
+    },
+    {
+        "image_path": "result_117.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 89,
+                "y": 92,
+                "width": 15,
+                "height": 16
+            }
+        ]
+    },
+    {
+        "image_path": "result_118.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 229,
+                "y": 13,
+                "width": 23,
+                "height": 18
+            }
+        ]
+    },
+    {
+        "image_path": "result_119.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 128,
+                "y": 5,
+                "width": 69,
+                "height": 75
+            }
+        ]
+    },
+    {
+        "image_path": "result_120.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 186,
+                "y": 141,
+                "width": 33,
+                "height": 26
+            }
+        ]
+    },
+    {
+        "image_path": "result_121.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 40,
+                "y": 194,
+                "width": 48,
+                "height": 43
+            }
+        ]
+    },
+    {
+        "image_path": "result_122.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 6,
+                "y": 194,
+                "width": 31,
+                "height": 42
+            }
+        ]
+    },
+    {
+        "image_path": "result_123.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 95,
+                "y": 91,
+                "width": 45,
+                "height": 58
+            }
+        ]
+    },
+    {
+        "image_path": "result_124.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 190,
+                "y": 50,
+                "width": 62,
+                "height": 63
+            }
+        ]
+    },
+    {
+        "image_path": "result_125.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 72,
+                "y": 49,
+                "width": 88,
+                "height": 82
+            }
+        ]
+    },
+    {
+        "image_path": "result_126.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 182,
+                "y": 126,
+                "width": 22,
+                "height": 19
+            }
+        ]
+    },
+    {
+        "image_path": "result_127.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 21,
+                "y": 73,
+                "width": 80,
+                "height": 63
+            }
+        ]
+    },
+    {
+        "image_path": "result_128.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 203,
+                "y": 72,
+                "width": 22,
+                "height": 28
+            }
+        ]
+    },
+    {
+        "image_path": "result_129.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 68,
+                "y": 190,
+                "width": 76,
+                "height": 62
+            }
+        ]
+    },
+    {
+        "image_path": "result_130.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 121,
+                "y": 147,
+                "width": 84,
+                "height": 78
+            }
+        ]
+    },
+    {
+        "image_path": "result_131.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 66,
+                "y": 108,
+                "width": 17,
+                "height": 15
+            }
+        ]
+    },
+    {
+        "image_path": "result_132.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 48,
+                "y": 117,
+                "width": 62,
+                "height": 52
+            }
+        ]
+    },
+    {
+        "image_path": "result_133.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 0,
+                "y": 106,
+                "width": 22,
+                "height": 30
+            }
+        ]
+    },
+    {
+        "image_path": "result_134.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 4,
+                "y": 2,
+                "width": 43,
+                "height": 52
+            }
+        ]
+    },
+    {
+        "image_path": "result_135.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 35,
+                "y": 128,
+                "width": 74,
+                "height": 63
+            }
+        ]
+    },
+    {
+        "image_path": "result_136.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 60,
+                "y": 61,
+                "width": 45,
+                "height": 59
+            }
+        ]
+    },
+    {
+        "image_path": "result_137.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 118,
+                "y": 201,
+                "width": 30,
+                "height": 21
+            }
+        ]
+    },
+    {
+        "image_path": "result_138.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 27,
+                "y": 69,
+                "width": 68,
+                "height": 71
+            }
+        ]
+    },
+    {
+        "image_path": "result_139.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 217,
+                "y": 59,
+                "width": 32,
+                "height": 36
+            }
+        ]
+    },
+    {
+        "image_path": "result_140.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 110,
+                "y": 56,
+                "width": 58,
+                "height": 50
+            }
+        ]
+    },
+    {
+        "image_path": "result_141.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 72,
+                "y": 160,
+                "width": 69,
+                "height": 78
+            }
+        ]
+    },
+    {
+        "image_path": "result_142.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 37,
+                "y": 40,
+                "width": 38,
+                "height": 53
+            }
+        ]
+    },
+    {
+        "image_path": "result_143.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 90,
+                "y": 98,
+                "width": 34,
+                "height": 30
+            }
+        ]
+    },
+    {
+        "image_path": "result_144.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 66,
+                "y": 106,
+                "width": 68,
+                "height": 57
+            }
+        ]
+    },
+    {
+        "image_path": "result_145.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 53,
+                "y": 116,
+                "width": 55,
+                "height": 73
+            }
+        ]
+    },
+    {
+        "image_path": "result_146.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 153,
+                "y": 140,
+                "width": 68,
+                "height": 51
+            }
+        ]
+    },
+    {
+        "image_path": "result_147.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 46,
+                "y": 58,
+                "width": 69,
+                "height": 78
+            }
+        ]
+    },
+    {
+        "image_path": "result_148.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 193,
+                "y": 0,
+                "width": 29,
+                "height": 33
+            }
+        ]
+    },
+    {
+        "image_path": "result_149.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 186,
+                "y": 156,
+                "width": 28,
+                "height": 28
+            }
+        ]
+    },
+    {
+        "image_path": "result_150.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 33,
+                "y": 138,
+                "width": 63,
+                "height": 70
+            }
+        ]
+    },
+    {
+        "image_path": "result_151.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 10,
+                "y": 94,
+                "width": 79,
+                "height": 62
+            }
+        ]
+    },
+    {
+        "image_path": "result_152.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 113,
+                "y": 59,
+                "width": 48,
+                "height": 64
+            }
+        ]
+    },
+    {
+        "image_path": "result_153.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 48,
+                "y": 64,
+                "width": 70,
+                "height": 73
+            }
+        ]
+    },
+    {
+        "image_path": "result_154.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 122,
+                "y": 223,
+                "width": 44,
+                "height": 31
+            }
+        ]
+    },
+    {
+        "image_path": "result_155.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 50,
+                "y": 96,
+                "width": 62,
+                "height": 57
+            }
+        ]
+    },
+    {
+        "image_path": "result_156.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 119,
+                "y": 160,
+                "width": 37,
+                "height": 38
+            }
+        ]
+    },
+    {
+        "image_path": "result_157.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 153,
+                "y": 8,
+                "width": 36,
+                "height": 40
+            }
+        ]
+    },
+    {
+        "image_path": "result_158.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 70,
+                "y": 211,
+                "width": 52,
+                "height": 43
+            }
+        ]
+    },
+    {
+        "image_path": "result_159.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 51,
+                "y": 37,
+                "width": 39,
+                "height": 50
+            }
+        ]
+    },
+    {
+        "image_path": "result_160.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 174,
+                "y": 73,
+                "width": 39,
+                "height": 50
+            }
+        ]
+    },
+    {
+        "image_path": "result_161.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 96,
+                "y": 129,
+                "width": 74,
+                "height": 81
+            }
+        ]
+    },
+    {
+        "image_path": "result_162.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 171,
+                "y": 39,
+                "width": 60,
+                "height": 54
+            }
+        ]
+    },
+    {
+        "image_path": "result_163.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 85,
+                "y": 77,
+                "width": 27,
+                "height": 23
+            }
+        ]
+    },
+    {
+        "image_path": "result_164.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 15,
+                "y": 155,
+                "width": 45,
+                "height": 44
+            }
+        ]
+    },
+    {
+        "image_path": "result_165.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 37,
+                "y": 40,
+                "width": 49,
+                "height": 43
+            }
+        ]
+    },
+    {
+        "image_path": "result_166.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 41,
+                "y": 162,
+                "width": 42,
+                "height": 42
+            }
+        ]
+    },
+    {
+        "image_path": "result_167.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 171,
+                "y": 75,
+                "width": 57,
+                "height": 49
+            }
+        ]
+    },
+    {
+        "image_path": "result_168.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 232,
+                "y": 20,
+                "width": 20,
+                "height": 24
+            }
+        ]
+    },
+    {
+        "image_path": "result_169.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 133,
+                "y": 89,
+                "width": 29,
+                "height": 33
+            }
+        ]
+    },
+    {
+        "image_path": "result_170.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 195,
+                "y": 125,
+                "width": 57,
+                "height": 75
+            }
+        ]
+    },
+    {
+        "image_path": "result_171.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 203,
+                "y": 97,
+                "width": 27,
+                "height": 22
+            }
+        ]
+    },
+    {
+        "image_path": "result_172.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 229,
+                "y": 156,
+                "width": 21,
+                "height": 27
+            }
+        ]
+    },
+    {
+        "image_path": "result_173.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 191,
+                "y": 34,
+                "width": 44,
+                "height": 40
+            }
+        ]
+    },
+    {
+        "image_path": "result_174.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 189,
+                "y": 127,
+                "width": 16,
+                "height": 22
+            }
+        ]
+    },
+    {
+        "image_path": "result_175.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 164,
+                "y": 31,
+                "width": 42,
+                "height": 47
+            }
+        ]
+    },
+    {
+        "image_path": "result_176.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 137,
+                "y": 55,
+                "width": 18,
+                "height": 16
+            }
+        ]
+    },
+    {
+        "image_path": "result_177.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 215,
+                "y": 182,
+                "width": 17,
+                "height": 19
+            }
+        ]
+    },
+    {
+        "image_path": "result_178.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 113,
+                "y": 36,
+                "width": 19,
+                "height": 19
+            }
+        ]
+    },
+    {
+        "image_path": "result_179.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 163,
+                "y": 62,
+                "width": 22,
+                "height": 18
+            }
+        ]
+    },
+    {
+        "image_path": "result_180.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 199,
+                "y": 97,
+                "width": 49,
+                "height": 50
+            }
+        ]
+    },
+    {
+        "image_path": "result_181.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 179,
+                "y": 87,
+                "width": 76,
+                "height": 66
+            }
+        ]
+    },
+    {
+        "image_path": "result_182.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 3,
+                "y": 104,
+                "width": 74,
+                "height": 84
+            }
+        ]
+    },
+    {
+        "image_path": "result_183.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 37,
+                "y": 34,
+                "width": 40,
+                "height": 36
+            }
+        ]
+    },
+    {
+        "image_path": "result_184.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 41,
+                "y": 58,
+                "width": 51,
+                "height": 42
+            }
+        ]
+    },
+    {
+        "image_path": "result_185.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 46,
+                "y": 28,
+                "width": 79,
+                "height": 74
+            }
+        ]
+    },
+    {
+        "image_path": "result_186.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 124,
+                "y": 72,
+                "width": 32,
+                "height": 39
+            }
+        ]
+    },
+    {
+        "image_path": "result_187.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 3,
+                "y": 122,
+                "width": 84,
+                "height": 86
+            }
+        ]
+    },
+    {
+        "image_path": "result_188.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 135,
+                "y": 43,
+                "width": 31,
+                "height": 27
+            }
+        ]
+    },
+    {
+        "image_path": "result_189.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 92,
+                "y": 228,
+                "width": 22,
+                "height": 17
+            }
+        ]
+    },
+    {
+        "image_path": "result_190.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 120,
+                "y": 104,
+                "width": 84,
+                "height": 76
+            }
+        ]
+    },
+    {
+        "image_path": "result_191.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 139,
+                "y": 39,
+                "width": 26,
+                "height": 22
+            }
+        ]
+    },
+    {
+        "image_path": "result_192.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 100,
+                "y": 50,
+                "width": 33,
+                "height": 24
+            }
+        ]
+    },
+    {
+        "image_path": "result_193.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 84,
+                "y": 170,
+                "width": 58,
+                "height": 60
+            }
+        ]
+    },
+    {
+        "image_path": "result_194.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 33,
+                "y": 61,
+                "width": 41,
+                "height": 40
+            }
+        ]
+    },
+    {
+        "image_path": "result_195.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 38,
+                "y": 179,
+                "width": 41,
+                "height": 37
+            }
+        ]
+    },
+    {
+        "image_path": "result_196.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 8,
+                "y": 107,
+                "width": 54,
+                "height": 59
+            }
+        ]
+    },
+    {
+        "image_path": "result_197.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 75,
+                "y": 22,
+                "width": 64,
+                "height": 51
+            }
+        ]
+    },
+    {
+        "image_path": "result_198.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 103,
+                "y": 30,
+                "width": 84,
+                "height": 78
+            }
+        ]
+    },
+    {
+        "image_path": "result_199.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 194,
+                "y": 80,
+                "width": 58,
+                "height": 63
+            }
+        ]
+    },
+    {
+        "image_path": "result_200.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 137,
+                "y": 72,
+                "width": 34,
+                "height": 37
+            }
+        ]
+    },
+    {
+        "image_path": "result_201.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 94,
+                "y": 83,
+                "width": 56,
+                "height": 73
+            }
+        ]
+    },
+    {
+        "image_path": "result_202.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 111,
+                "y": 19,
+                "width": 64,
+                "height": 71
+            }
+        ]
+    },
+    {
+        "image_path": "result_203.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 136,
+                "y": 8,
+                "width": 61,
+                "height": 57
+            }
+        ]
+    },
+    {
+        "image_path": "result_204.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 49,
+                "y": 21,
+                "width": 19,
+                "height": 23
+            }
+        ]
+    },
+    {
+        "image_path": "result_205.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 186,
+                "y": 223,
+                "width": 35,
+                "height": 26
+            }
+        ]
+    },
+    {
+        "image_path": "result_206.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 8,
+                "y": 216,
+                "width": 25,
+                "height": 20
+            }
+        ]
+    },
+    {
+        "image_path": "result_207.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 45,
+                "y": 11,
+                "width": 56,
+                "height": 73
+            }
+        ]
+    },
+    {
+        "image_path": "result_208.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 208,
+                "y": 82,
+                "width": 17,
+                "height": 17
+            }
+        ]
+    },
+    {
+        "image_path": "result_209.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 138,
+                "y": 111,
+                "width": 89,
+                "height": 86
+            }
+        ]
+    },
+    {
+        "image_path": "result_210.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 109,
+                "y": 26,
+                "width": 67,
+                "height": 82
+            }
+        ]
+    },
+    {
+        "image_path": "result_211.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 137,
+                "y": 163,
+                "width": 39,
+                "height": 50
+            }
+        ]
+    },
+    {
+        "image_path": "result_212.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 54,
+                "y": 50,
+                "width": 55,
+                "height": 58
+            }
+        ]
+    },
+    {
+        "image_path": "result_213.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 26,
+                "y": 16,
+                "width": 71,
+                "height": 84
+            }
+        ]
+    },
+    {
+        "image_path": "result_214.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 107,
+                "y": 62,
+                "width": 72,
+                "height": 55
+            }
+        ]
+    },
+    {
+        "image_path": "result_215.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 67,
+                "y": 156,
+                "width": 28,
+                "height": 28
+            }
+        ]
+    },
+    {
+        "image_path": "result_216.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 204,
+                "y": 93,
+                "width": 48,
+                "height": 40
+            }
+        ]
+    },
+    {
+        "image_path": "result_217.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 206,
+                "y": 22,
+                "width": 21,
+                "height": 18
+            }
+        ]
+    },
+    {
+        "image_path": "result_218.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 95,
+                "y": 224,
+                "width": 25,
+                "height": 31
+            }
+        ]
+    },
+    {
+        "image_path": "result_219.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 121,
+                "y": 216,
+                "width": 21,
+                "height": 18
+            }
+        ]
+    },
+    {
+        "image_path": "result_220.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 126,
+                "y": 183,
+                "width": 55,
+                "height": 73
+            }
+        ]
+    },
+    {
+        "image_path": "result_221.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 122,
+                "y": 83,
+                "width": 82,
+                "height": 81
+            }
+        ]
+    },
+    {
+        "image_path": "result_222.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 87,
+                "y": 63,
+                "width": 33,
+                "height": 33
+            }
+        ]
+    },
+    {
+        "image_path": "result_223.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 79,
+                "y": 200,
+                "width": 63,
+                "height": 49
+            }
+        ]
+    },
+    {
+        "image_path": "result_224.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 120,
+                "y": 21,
+                "width": 55,
+                "height": 65
+            }
+        ]
+    },
+    {
+        "image_path": "result_225.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 95,
+                "y": 59,
+                "width": 24,
+                "height": 23
+            }
+        ]
+    },
+    {
+        "image_path": "result_226.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 159,
+                "y": 25,
+                "width": 64,
+                "height": 57
+            }
+        ]
+    },
+    {
+        "image_path": "result_227.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 24,
+                "y": 148,
+                "width": 69,
+                "height": 49
+            }
+        ]
+    },
+    {
+        "image_path": "result_228.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 78,
+                "y": 188,
+                "width": 42,
+                "height": 40
+            }
+        ]
+    },
+    {
+        "image_path": "result_229.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 12,
+                "y": 143,
+                "width": 30,
+                "height": 25
+            }
+        ]
+    },
+    {
+        "image_path": "result_230.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 19,
+                "y": 163,
+                "width": 63,
+                "height": 54
+            }
+        ]
+    },
+    {
+        "image_path": "result_231.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 26,
+                "y": 12,
+                "width": 24,
+                "height": 23
+            }
+        ]
+    },
+    {
+        "image_path": "result_232.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 15,
+                "y": 156,
+                "width": 32,
+                "height": 29
+            }
+        ]
+    },
+    {
+        "image_path": "result_233.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 91,
+                "y": 206,
+                "width": 27,
+                "height": 26
+            }
+        ]
+    },
+    {
+        "image_path": "result_234.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 139,
+                "y": 65,
+                "width": 42,
+                "height": 40
+            }
+        ]
+    },
+    {
+        "image_path": "result_235.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 51,
+                "y": 25,
+                "width": 72,
+                "height": 81
+            }
+        ]
+    },
+    {
+        "image_path": "result_236.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 92,
+                "y": 112,
+                "width": 58,
+                "height": 60
+            }
+        ]
+    },
+    {
+        "image_path": "result_237.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 78,
+                "y": 171,
+                "width": 83,
+                "height": 78
+            }
+        ]
+    },
+    {
+        "image_path": "result_238.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 70,
+                "y": 142,
+                "width": 60,
+                "height": 66
+            }
+        ]
+    },
+    {
+        "image_path": "result_239.png",
+        "bounding_boxes": [
+            {
+                "class": "player",
+                "x": 209,
+                "y": 28,
+                "width": 19,
+                "height": 19
+            }
+        ]
+    }
+]
