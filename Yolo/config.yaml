@@ -1,0 +1,7 @@
+path: "C:/Git Projects/OpenCV/Yolo/data"
+train: images/train
+val: images/train
+
+# Classes
+names:
+  0: player
