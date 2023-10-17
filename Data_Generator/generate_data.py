@@ -5,51 +5,45 @@ import argparse
 import random
 import json
 import configparser
+import glob
 
 def generate_data(sprites_path, backgrounds_path, res_path, res_width, res_height):
     # Load sprites and backgrounds
-    sprites = [Image.open(os.path.join(sprites_path, sprite)) for sprite in os.listdir(sprites_path)]
+    sprites = [Image.open(sprite) for sprite in glob.glob(f"{sprites_path}/**/*.png", recursive=True)]
     backgrounds = [Image.open(os.path.join(backgrounds_path, bg)) for bg in os.listdir(backgrounds_path)]
 
     # Ensure the output directory exists
     images_path = f"{res_path}/images/train"
     labels_path = f"{res_path}/labels/train"
-    os.makedirs(images_path)
-    os.makedirs(labels_path)
-
+    os.makedirs(images_path, exist_ok=True)
+    os.makedirs(labels_path, exist_ok=True)
     i = 0
     # Iterate and create images
-    for sprite in sprites:
-        for background in backgrounds:
-            # Randomly scale the sprite
-            scale_factor = random.uniform(1, 3.0)
-            scaled_sprite = ImageOps.scale(sprite, scale_factor)
-
-            # Randomly rotate the sprite
-            rotation_angle = random.randint(0, 360)
-            rotated_sprite = ImageOps.exif_transpose(scaled_sprite.rotate(rotation_angle, expand=True))
-
-            # Calculate a random position to place the sprite
-            x_offset = random.randint(0, res_width - rotated_sprite.width)
-            y_offset = random.randint(0, res_height - rotated_sprite.height)
-
-            # Create a new image with the specified dimensions
+    for background in backgrounds:
+        for _ in range(10):  # Repeat 10 times
             result_image = Image.new("RGBA", (res_width, res_height), (255, 255, 255, 0))
-
-            # Paste the sprite onto the background
             result_image.paste(background, (0, 0), background)
-            result_image.paste(rotated_sprite, (x_offset, y_offset), rotated_sprite)
+            
+            annotations = []
 
-            # Draw a rectangle around the bounding box
-            # draw = ImageDraw.Draw(result_image)
-            # rect_coordinates = (
-            #     (x_offset, y_offset),
-            #     (x_offset + rotated_sprite.width, y_offset),
-            #     (x_offset + rotated_sprite.width, y_offset + rotated_sprite.height),
-            #     (x_offset, y_offset + rotated_sprite.height),
-            #     (x_offset, y_offset)  # Close the rectangle
-            # )
-            # draw.line(rect_coordinates, fill=(255, 0, 0, 255), width=3)
+            for sprite in sprites:
+                # Randomly scale the sprite
+                scale_factor = random.uniform(1, 3.0)
+                scaled_sprite = ImageOps.scale(sprite, scale_factor)
+
+                # Randomly rotate the sprite
+                rotation_angle = random.randint(0, 360)
+                rotated_sprite = ImageOps.exif_transpose(scaled_sprite.rotate(rotation_angle, expand=True))
+
+                # Calculate a random position to place the sprite
+                x_offset = random.randint(0, res_width - rotated_sprite.width)
+                y_offset = random.randint(0, res_height - rotated_sprite.height)
+
+                # Paste the sprite onto the background
+                result_image.paste(rotated_sprite, (x_offset, y_offset), rotated_sprite)
+                
+                # Save the annotation data
+                annotations.append(f"0 {(x_offset + rotated_sprite.width/2) / res_width} {(y_offset + rotated_sprite.height/2) / res_height} {rotated_sprite.width / res_width} {rotated_sprite.height / res_height}")
 
             # Save the resulting image
             result_image_filename = f"result_{i}.png"
@@ -59,11 +53,11 @@ def generate_data(sprites_path, backgrounds_path, res_path, res_width, res_heigh
             # Save the annotation data
             result_label_filename = f"result_{i}.txt"
             result_label_path = os.path.join(labels_path, result_label_filename)
-
+            
             with open(result_label_path, 'w') as file:
-                file.write(f"0 {(x_offset + rotated_sprite.width/2) / res_width} {(y_offset + + rotated_sprite.height/2) / res_height} {rotated_sprite.width / res_width} {rotated_sprite.height / res_height}")
-                
+                file.write("\n".join(annotations))
             i += 1
+
 
 def load_config():
     config = configparser.ConfigParser()
@@ -86,6 +80,7 @@ def main():
     parser = argparse.ArgumentParser(description="Generate training data from sprites and backgrounds.")
     parser.add_argument("--config", action="store_true", help="Use this flag to load configuration from a config file.")
     args = parser.parse_args()
+    print("sdsd")
 
     if args.config:
         sprites_path, backgrounds_path, res_path, res_width, res_height = load_config()

@@ -2,13 +2,14 @@ from PIL import Image
 import numpy as np
 import os
 import argparse
+import configparser
 
-def extract_spritesheet(spritesheet_path, output_directory, cols, rows, sprite_name):
+def extract_spritesheet(input_path, output_path, cols, rows, sprite_name):    
     # Open the spritesheet image
-    spritesheet = Image.open(spritesheet_path)
+    spritesheet = Image.open(input_path)
 
     # Ensure the output directory exists
-    os.makedirs(output_directory, exist_ok=True)
+    os.makedirs(output_path, exist_ok=True)
 
     # Get the dimensions of the spritesheet
     sheet_width, sheet_height = spritesheet.size
@@ -31,20 +32,34 @@ def extract_spritesheet(spritesheet_path, output_directory, cols, rows, sprite_n
             print(row, col)
             # Save the sprite frame as a PNG file
             frame_filename = f"{sprite_name}_{row}_{col}.png"
-            frame_path = os.path.join(output_directory, frame_filename)
+            frame_path = os.path.join(output_path, frame_filename)
             sprite_frame.save(frame_path, "PNG")
 
-def main():
-    parser = argparse.ArgumentParser(description="Extract sprite frames from a spritesheet.")
-    parser.add_argument("spritesheet_path", type=str, help="Path to the spritesheet image.")
-    parser.add_argument("output_directory", type=str, help="Output directory where sprite frames will be saved.")
-    parser.add_argument("sprite_width", type=int, help="Width of each sprite frame in pixels.")
-    parser.add_argument("sprite_height", type=int, help="Height of each sprite frame in pixels.")
-    parser.add_argument("sprite_name", type=str, help="Base name for the extracted sprite frames.")
+def load_config():
+    config = configparser.ConfigParser()
+    config.read('config.properties')
 
+    input_config = config['input_config']
+    output_config = config['output_config']
+    spritesheet_config = config['spritesheet_config']
+
+    return (
+        input_config['input_path'],
+        output_config['output_path'],
+        int(spritesheet_config['cols']),
+        int(spritesheet_config['rows']),
+        spritesheet_config['sprite_name'],
+    )
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Extracts sprites from spritesheets.")
+    parser.add_argument("--config", action="store_true", help="Use this flag to load configuration from a config file.")
     args = parser.parse_args()
 
-    extract_spritesheet(args.spritesheet_path, args.output_directory, args.sprite_width, args.sprite_height, args.sprite_name)
+    if args.config: 
+        input_path, output_path, cols, rows, sprite_name = load_config()
+        extract_spritesheet(input_path, output_path, cols, rows, sprite_name)
 
 if __name__ == "__main__":
     main()

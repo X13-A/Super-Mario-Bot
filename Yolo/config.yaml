@@ -4,4 +4,4 @@ val: images/train
 
 # Classes
 names:
-  0: player
+  0: player  
