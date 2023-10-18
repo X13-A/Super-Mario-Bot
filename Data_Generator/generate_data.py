@@ -12,6 +12,15 @@ def generate_data(sprites_path, backgrounds_path, res_path, res_width, res_heigh
     sprites = [Image.open(sprite) for sprite in glob.glob(f"{sprites_path}/**/*.png", recursive=True)]
     backgrounds = [Image.open(os.path.join(backgrounds_path, bg)) for bg in os.listdir(backgrounds_path)]
 
+    # Utiliser la fonction max avec un lambda pour trouver les dimensions maximales
+    width_max = max(sprites, key=lambda img: img.size[0]).size[0]
+    height_max = max(sprites, key=lambda img: img.size[1]).size[1]
+    
+    indexes=[]
+    for w in range(0,int(res_width/width_max)) :
+        for h in range(0,int(res_height/height_max)):
+            indexes.append((w*width_max,h*height_max))
+    
     # Ensure the output directory exists
     images_path = f"{res_path}/images/train"
     labels_path = f"{res_path}/labels/train"
@@ -21,29 +30,35 @@ def generate_data(sprites_path, backgrounds_path, res_path, res_width, res_heigh
     # Iterate and create images
     for background in backgrounds:
         for _ in range(10):  # Repeat 10 times
+            indexes2 = indexes.copy()
+            resized_background = background.resize((res_width, res_height))
             result_image = Image.new("RGBA", (res_width, res_height), (255, 255, 255, 0))
-            result_image.paste(background, (0, 0), background)
+            result_image.paste(resized_background, (0, 0))
             
             annotations = []
 
             for sprite in sprites:
-                # Randomly scale the sprite
+                '''# Randomly scale the sprite
                 scale_factor = random.uniform(1, 3.0)
                 scaled_sprite = ImageOps.scale(sprite, scale_factor)
 
                 # Randomly rotate the sprite
                 rotation_angle = random.randint(0, 360)
-                rotated_sprite = ImageOps.exif_transpose(scaled_sprite.rotate(rotation_angle, expand=True))
+                rotated_sprite = ImageOps.exif_transpose(scaled_sprite.rotate(rotation_angle, expand=True))'''
 
                 # Calculate a random position to place the sprite
-                x_offset = random.randint(0, res_width - rotated_sprite.width)
-                y_offset = random.randint(0, res_height - rotated_sprite.height)
+                rand_ind = random.randint(0,len(indexes2)-1)
+                x_offset = indexes2[rand_ind][0]
+                y_offset = indexes2[rand_ind][1]
+                print(str((x_offset,y_offset)))
+                
+                indexes2.remove(indexes2[rand_ind])
 
                 # Paste the sprite onto the background
-                result_image.paste(rotated_sprite, (x_offset, y_offset), rotated_sprite)
+                result_image.paste(sprite, (x_offset, y_offset), sprite)
                 
                 # Save the annotation data
-                annotations.append(f"0 {(x_offset + rotated_sprite.width/2) / res_width} {(y_offset + rotated_sprite.height/2) / res_height} {rotated_sprite.width / res_width} {rotated_sprite.height / res_height}")
+                annotations.append(f"0 {(x_offset + sprite.width/2) / res_width} {(y_offset + sprite.height/2) / res_height} {sprite.width / res_width} {sprite.height / res_height}")
 
             # Save the resulting image
             result_image_filename = f"result_{i}.png"
@@ -61,8 +76,8 @@ def generate_data(sprites_path, backgrounds_path, res_path, res_width, res_heigh
 
 def load_config():
     config = configparser.ConfigParser()
-    config.read('config.properties')
 
+    config.read('config.properties')
     sprite_config = config['sprite_config']
     background_config = config['background_config']
     res_config = config['res_config']
