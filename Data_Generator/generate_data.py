@@ -9,7 +9,14 @@ import glob
 
 def generate_data(sprites_path, backgrounds_path, res_path, res_width, res_height):
     # Load sprites and backgrounds
-    sprites = [Image.open(sprite) for sprite in glob.glob(f"{sprites_path}/**/*.png", recursive=True)]
+    count = {"mario":2,"koopa":2,"ground":20,"pipe":20,"spike_turtle":20,
+             "turtle":20,"goomba":20,"bullet":38,"question_bloc":20}
+    
+    sprites = []
+    for k,v in count.items():
+        sprite_paths = glob.glob(f"{sprites_path}/{k}/**/*.png", recursive=True)
+        sprites.extend([Image.open(sprite) for sprite in sprite_paths * v]) 
+    
     backgrounds = [Image.open(os.path.join(backgrounds_path, bg)) for bg in os.listdir(backgrounds_path)]
 
     # Utiliser la fonction max avec un lambda pour trouver les dimensions maximales
@@ -27,6 +34,7 @@ def generate_data(sprites_path, backgrounds_path, res_path, res_width, res_heigh
     os.makedirs(images_path, exist_ok=True)
     os.makedirs(labels_path, exist_ok=True)
     i = 0
+    print(len(sprites))
     # Iterate and create images
     for background in backgrounds:
         for _ in range(10):  # Repeat 10 times
@@ -36,7 +44,6 @@ def generate_data(sprites_path, backgrounds_path, res_path, res_width, res_heigh
             result_image.paste(resized_background, (0, 0))
             
             annotations = []
-
             for sprite in sprites:
                 '''# Randomly scale the sprite
                 scale_factor = random.uniform(1, 3.0)
@@ -50,7 +57,7 @@ def generate_data(sprites_path, backgrounds_path, res_path, res_width, res_heigh
                 rand_ind = random.randint(0,len(indexes2)-1)
                 x_offset = indexes2[rand_ind][0]
                 y_offset = indexes2[rand_ind][1]
-                print(str((x_offset,y_offset)))
+                
                 
                 indexes2.remove(indexes2[rand_ind])
 
