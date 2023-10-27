@@ -23,8 +23,8 @@ class DataGenerator:
         # Utiliser la fonction max avec un lambda pour trouver les dimensions maximales
         
         # Load sprites
-        count = {"mario":1,"koopa":2,"ground":20,"pipe":15,"spike_turtle":10,
-                "turtle":10,"goomba":10,"bullet":10,"question_block":10}
+        count = {"mario":6,"koopa":12,"ground":120,"pipe":90,"spike_turtle":60,
+                "turtle":60,"goomba":60,"bullet":60,"question_block":60}
         
         # Ensure the output directory exists
         images_path = f"{self.res_path}/images/train"
@@ -61,13 +61,16 @@ class DataGenerator:
                     for h in range(0,int(self.res_height/height_max)):
                         indexes.append((w*width_max,h*height_max))
                         
-                resized_background = background.resize((self.res_width, self.res_height))
+                resized_background = background.resize((254,176))
                 result_image = Image.new("RGBA", (self.res_width,self. res_height), (255, 255, 255, 0))
-                result_image.paste(resized_background, (0, 0))
+                for x in range(0,10) :
+                    for y in range (0,10) :
+                        pos_x = int(x*254)
+                        pos_y = int(y*176)
+                        #print(str(pos_x)+ " : "+str(pos_y))
+                        result_image.paste(resized_background,(pos_x, pos_y ))
                 
                 annotations = []
-
-                
 
                 for class_index, class_label in enumerate(self.classes):
                     for sprite in all_sprites[class_label]:    
@@ -85,6 +88,7 @@ class DataGenerator:
                         annotations.append(f"{class_index} {(x_offset + sprite.width/2) / self.res_width} {(y_offset + sprite.height/2) / self.res_height} {sprite.width / self.res_width} {sprite.height / self.res_height}")
 
                 # Save the resulting image
+                print(i)
                 result_image.save(os.path.join(images_path, f"result_{i}.png"), "PNG")
 
                 # Save the annotation data
