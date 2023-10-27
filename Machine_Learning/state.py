@@ -37,6 +37,11 @@ class State:
         closest_enemy = min(forward_enemies, key=lambda e: (e.location.x - mario_x_in_level)**2 + (e.location.y - mario_y_in_level)**2)
         dx = round((closest_enemy.location.x - mario_x_in_level)/16)
         dy = round((closest_enemy.location.y - mario_y_in_level)/16)
+        if dx>3 :
+            dx = 16
+        if dy>3 :
+            dy = 16
+        
         return (dx,dy)
 
     def update(self, ram):
@@ -48,3 +53,6 @@ class State:
         self.obstacle = self.getObstacleDist(tiles, mario_pos_in_grid)
         self.hole = self.getHoleDist(tiles, mario_pos_in_grid)
         self.enemy = self.getEnemyDist(enemies, mario_pos_in_level)
+
+    def combination(self):
+        return (self.enemy[0],self.enemy[1],self.obstacle,self.hole)

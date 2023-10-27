@@ -1,8 +1,11 @@
 from pygame.locals import *
 import pygame
 from state import State
+from qTable import QTable
 from settings import USE_KEYBOARD
 from settings import SHOW_MINI_DISPLAY
+import numpy as np
+import random
 
 class Training():
     def __init__(self, env, ram):
@@ -12,6 +15,10 @@ class Training():
         self.max_fitness = 0
         self.fitness = 0
         self.state = State()
+        self.q_table = QTable()
+        self.alpha = 0.1
+        self.gamma = 0.9
+        self.epsilon = 1
 
     def getManualAction(self):
         action = 0
@@ -30,9 +37,16 @@ class Training():
             action = 5  # Jump
         return action
 
-    def getNextAction(self):
+    def getNextAction(self,epsilon):
         # TODO: Use Q-Table or explore to pick action
-        return self.env.action_space.sample()
+        # Si on tire un nombre aléatoire inférieur à epsilon, on explore.
+        if random.uniform(0, 1) < epsilon:
+            return self.env.action_space.sample()
+        else:
+            # Sinon, on exploite en choisissant l'action avec la valeur Q la plus élevée pour l'état donné.
+            state_combination = self.q_table.Q[self.state.combination()]
+            return max(state_combination, key=state_combination.get)
+
     
     def update(self):
         if self.done:
@@ -41,8 +55,11 @@ class Training():
             if (self.fitness > self.max_fitness): self.max_fitness = self.fitness 
         
         if USE_KEYBOARD and SHOW_MINI_DISPLAY: action = self.getManualAction()
-        else: action = self.getNextAction()
+        else: action = self.getNextAction(self.epsilon)
 
+        self.epsilon *= 0.995
         frame, reward, self.done, truncated, info = self.env.step(action)
+        old_state = self.state
         self.state.update(self.ram)
+        self.q_table.update(old_state,self.state,action,self.gamma,self.alpha,reward)
         self.fitness += reward

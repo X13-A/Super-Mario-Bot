@@ -3,24 +3,23 @@ from itertools import product
 
 class QTable:
     def __init__(self):
-        self.state_attributes = ['dx_e', 'dy_e', 'dx_o', 'dx_h']
-        self.state_values = [1,2,3,16]
-        self.commands = ['right', 'a', 'b']
-        self.commands_values = [0, 1]
+        self.state_values = [0,1,2,3,16]
+        self.state_variables = 4
+        self.n_actions = 7
+        self.Q = {}
 
         # Générer toutes les combinaisons possibles des valeurs d'états
-        self.all_state_combinations = list(product(self.state_values, repeat=len(self.state_attributes)))
+        self.all_state_combinations = list(product(self.state_values, repeat=self.state_variables))
 
-        # Générer toutes les combinaisons possibles des valeurs de commandes
-        self.all_command_combinations = list(product(self.commands_values, repeat=len(self.commands)))
+        for state_combination in self.all_state_combinations :
+            self.Q[state_combination] = {}
+            for action in range(0,self.n_actions) :
+                self.Q[state_combination][action] = 0
 
-        # Combinaison des états et des commandes
-        self.all_combinations = [state_comb + cmd_comb for state_comb in self.all_state_combinations for cmd_comb in self.all_command_combinations]
-
-        # Convertir en une matrice numpy
-        matrix = np.array(self.all_combinations)
-
-        # Ajouter une colonne pour les récompenses (initialement mise à zéro)
-        rewards = np.zeros((matrix.shape[0], 1))
-        self.matrix = np.hstack((matrix, rewards))
-        print(self.matrix.size)
+        
+    def update(self,state,next_state,action,gamma,alpha,reward):
+        combination = state.combination()
+        next_combination = next_state.combination()
+        next_max = max(self.Q[next_combination].values())
+        self.Q[state.combination()][action] += alpha*(reward+gamma*next_max-self.Q[combination][action])
+        
