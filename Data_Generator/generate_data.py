@@ -36,7 +36,7 @@ class DataGenerator:
         i = 0
         # Iterate and create images
         for background in backgrounds:
-            for _ in range(10):  # Repeat 10 times
+            for _ in range(20):  # Repeat 10 times
                 
                 width_max = 0
                 height_max = 0
