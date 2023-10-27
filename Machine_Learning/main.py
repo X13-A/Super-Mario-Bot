@@ -1,20 +1,27 @@
 from nes_py.wrappers import JoypadSpace
 import gym_super_mario_bros
 from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
-from display import *
-from train import *
-from pygame.locals import * # Import the constant for the right arrow key
+from debug import *
+from training import *
+from settings import *
 
-env = gym_super_mario_bros.make('SuperMarioBros-v0', apply_api_compatibility=True, render_mode="human" )
+# Setup environment
+env = gym_super_mario_bros.make('SuperMarioBros-v0', apply_api_compatibility=True, render_mode=RENDER_MODE)
 env = JoypadSpace(env, SIMPLE_MOVEMENT)
 ram = env.env.env.env.env.env.unwrapped.ram
-smb = SMB()
-training = Training(env, smb, ram)
-miniDisplay : MiniDisplay = MiniDisplay(smb, ram)
 
+# Setup training
+training : Training = Training(env, ram)
+
+# Init debug tools
+if SHOW_MINI_DISPLAY: mini_display : MiniDisplay = MiniDisplay(ram)
+if SHOW_FPS: fps_counter : FPSCounter = FPSCounter()
+
+# Training loop
 for step in range(100000):
     training.update()
-    miniDisplay.update()
+    if SHOW_MINI_DISPLAY: mini_display.update()
+    if SHOW_FPS: fps_counter.update()
 
 env.close()
 pygame.quit()

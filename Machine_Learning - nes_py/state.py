@@ -1,13 +1,13 @@
 from utils import StaticTileType
 import numpy as np
-from utils import SMB
 
 class State:
-    def __init__(self):
+    def __init__(self, training):
+        self.training = training
         self.obstacle = 16
         self.hole = 16
         self.enemy = (16, 16)
-        
+    
     def getObstacleDist(self, tiles, mario_pos):
         if (mario_pos[0] >= tiles.shape[0] or mario_pos[1] >= tiles.shape[1]): return tiles.shape[1]
         if (mario_pos[0] < 0 or mario_pos[1] < 0): return tiles.shape[1]
@@ -39,11 +39,11 @@ class State:
         dy = round((closest_enemy.location.y - mario_y_in_level)/16)
         return (dx,dy)
 
-    def update(self, ram):
-        tiles = SMB.get_tiles_array(ram)
-        mario_pos_in_grid = SMB.get_mario_row_col(ram)
-        mario_pos_in_level = SMB.get_mario_location_in_level(ram)
-        enemies = SMB.get_enemy_locations(ram)
+    def update(self):
+        tiles = self.training.smb.get_tiles_array(self.training.ram)
+        mario_pos_in_grid = self.training.smb.get_mario_row_col(self.training.ram)
+        mario_pos_in_level = self.training.smb.get_mario_location_in_level(self.training.ram)
+        enemies = self.training.smb.get_enemy_locations(self.training.ram)
         
         self.obstacle = self.getObstacleDist(tiles, mario_pos_in_grid)
         self.hole = self.getHoleDist(tiles, mario_pos_in_grid)
