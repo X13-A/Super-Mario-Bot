@@ -1,7 +1,7 @@
 from nes_py.wrappers import JoypadSpace
 import gym_super_mario_bros
 from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
-from mini_display import *
+from display import *
 from train import *
 from pygame.locals import * # Import the constant for the right arrow key
 
