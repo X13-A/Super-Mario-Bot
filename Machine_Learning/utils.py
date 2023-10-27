@@ -202,6 +202,30 @@ class SMB(object):
         return Point(mario_x, mario_y)
 
     @classmethod
+    def set_mario_position(cls, ram: np.ndarray, x: int, y: int):
+        # Set Mario's X position in the level
+        ram[cls.RAMLocations.Player_X_Postion_In_Level.value] = x // 256
+        ram[cls.RAMLocations.Player_X_Position_On_Screen.value] = x % 256
+
+        # Set Mario's Y position on the screen
+        ram[cls.RAMLocations.Player_Y_Pos_On_Screen.value] = y
+
+    @classmethod
+    def advance_screen_scrolling(cls, ram: np.ndarray, pixels: int):
+        # Increase Mario's horizontal position in the level
+        current_x = (ram[cls.RAMLocations.Player_X_Postion_In_Level.value] * 256) + \
+                    ram[cls.RAMLocations.Player_X_Position_On_Screen.value]
+        new_x = current_x + pixels
+        ram[cls.RAMLocations.Player_X_Postion_In_Level.value] = new_x // 256
+        ram[cls.RAMLocations.Player_X_Position_On_Screen.value] = new_x % 256
+
+        # Update the screen's scrolling position
+        current_offset = ram[cls.RAMLocations.Player_X_Position_Screen_Offset.value]
+        new_offset = (current_offset + pixels) % 256  # Modulo 256 to keep it within byte limits
+        ram[cls.RAMLocations.Player_X_Position_Screen_Offset.value] = new_offset
+
+
+    @classmethod
     def get_mario_score(cls, ram: np.ndarray) -> int:
         multipllier = 10
         score = 0
@@ -272,10 +296,11 @@ class SMB(object):
 
         # Place marker for mario
         mario_row, mario_col = cls.get_mario_row_col(ram)
-        tiles[mario_row, mario_col] = DynamicTileType.Mario
-
+        try:
+            tiles[mario_row, mario_col] = DynamicTileType.Mario
+        except:
+            pass
         return tiles
-
 
     @classmethod
     def get_mario_row_col(cls, ram):
@@ -286,7 +311,6 @@ class SMB(object):
         col = x // 16
         row = (y - 0) // 16
         return (row, col)
-
 
     @classmethod
     def get_tile(cls, x, y, ram, group_non_zero_tiles=True):

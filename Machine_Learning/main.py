@@ -3,6 +3,7 @@ import gym_super_mario_bros
 from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
 from mini_display import *
 from train import *
+from pygame.locals import * # Import the constant for the right arrow key
 
 env = gym_super_mario_bros.make('SuperMarioBros-v0', apply_api_compatibility=True, render_mode="human" )
 env = JoypadSpace(env, SIMPLE_MOVEMENT)
