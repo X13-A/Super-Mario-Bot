@@ -283,16 +283,16 @@ class SMB(object):
 
                 if row < 2:
                     tiles[row, col] = StaticTileType.Empty
-                else:
-                    try:
-                        tiles[row, col] = StaticTileType(tile)
-                    except:
-                        tiles[row, col] = StaticTileType.Fake
-                    for enemy in enemies:
-                        ex = enemy.location.x
-                        ey = enemy.location.y + 8
-                        if abs(x_pos - ex) <= 8 and abs(y_pos - ey) <= 8:
-                            tiles[row, col] = EnemyType.Generic_Enemy
+                    continue
+                try:
+                    tiles[row, col] = StaticTileType(tile)
+                except:
+                    tiles[row, col] = StaticTileType.Fake
+                for enemy in enemies:
+                    ex = enemy.location.x
+                    ey = enemy.location.y + 8
+                    if abs(x_pos - ex) <= 8 and abs(y_pos - ey) <= 8:
+                        tiles[row, col] = EnemyType.Generic_Enemy
 
         # Place marker for mario
         mario_row, mario_col = cls.get_mario_row_col(ram)

@@ -15,7 +15,7 @@ class State:
         mario_row = tiles[mario_pos[0], mario_pos[1]:]
         obstacles = np.where(mario_row == StaticTileType.Fake)[0]
         
-        if (obstacles.size): return obstacles[0]
+        if (obstacles.size and obstacles[0] <= 3): return obstacles[0]
         return tiles.shape[1]
 
     def getHoleDist(self, tiles, mario_pos):
@@ -25,7 +25,8 @@ class State:
         bottom_row = tiles[-1, mario_pos[1]:]
         holes = np.where(bottom_row == StaticTileType.Empty)[0]
 
-        if (holes.size): return holes[0]
+        if (holes.size and holes[0] <= 3): 
+            return holes[0]
         return tiles.shape[1]
     
     def getEnemyDist(self, enemies, mario_pos_in_level):
