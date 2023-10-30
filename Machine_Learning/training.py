@@ -42,9 +42,11 @@ class Training():
         # Si on tire un nombre aléatoire inférieur à epsilon, on explore.
         if random.uniform(0, 1) < epsilon:
             return self.env.action_space.sample()
+            print('a')
         else:
+            print(epsilon)
             # Sinon, on exploite en choisissant l'action avec la valeur Q la plus élevée pour l'état donné.
-            state_combination = self.q_table.Q[self.state.combination()]
+            state_combination = self.q_table.Q[str(self.state.combination())]
             return max(state_combination, key=state_combination.get)
 
     
@@ -57,8 +59,9 @@ class Training():
         if USE_KEYBOARD and SHOW_MINI_DISPLAY: action = self.getManualAction()
         else: action = self.getNextAction(self.epsilon)
 
-        self.epsilon *= 0.995
+        #self.epsilon *= 0.995
         frame, reward, self.done, truncated, info = self.env.step(action)
+
         old_state = self.state
         self.state.update(self.ram)
         self.q_table.update(old_state,self.state,action,self.gamma,self.alpha,reward)
