@@ -4,7 +4,10 @@ from state import State
 from qTable import QTable
 from settings import USE_KEYBOARD
 from settings import SHOW_MINI_DISPLAY
-import numpy as np
+from settings import EPSILON_START
+from settings import EPSILON_SCALING
+from settings import EPSILON_MIN
+from settings import MAX_STUCK_TIME
 import random
 
 class Training():
@@ -18,7 +21,10 @@ class Training():
         self.q_table = QTable()
         self.alpha = 0.1
         self.gamma = 0.9
-        self.epsilon = 1
+        self.epsilon = EPSILON_START
+
+        self.last_pos = 0
+        self.stuck_time = 0
 
     def getManualAction(self):
         action = 0
@@ -38,31 +44,46 @@ class Training():
         return action
 
     def getNextAction(self,epsilon):
-        # TODO: Use Q-Table or explore to pick action
         # Si on tire un nombre aléatoire inférieur à epsilon, on explore.
         if random.uniform(0, 1) < epsilon:
             return self.env.action_space.sample()
-            print('a')
         else:
-            print(epsilon)
             # Sinon, on exploite en choisissant l'action avec la valeur Q la plus élevée pour l'état donné.
             state_combination = self.q_table.Q[str(self.state.combination())]
-            return max(state_combination, key=state_combination.get)
+            return int(max(state_combination, key=state_combination.get))
 
     
     def update(self):
         if self.done:
+            print("### DONE ###")
+            print("Fitness: ", self.fitness)
+            print("Epsilon: ", self.epsilon)
+            self.q_table.saveQ()
             self.env.reset()
-            self.fitness = 0
             if (self.fitness > self.max_fitness): self.max_fitness = self.fitness 
-        
+            self.fitness = 0
+            print("Max fitness: ", self.max_fitness)
+            print("")
+            self.done = False
+
         if USE_KEYBOARD and SHOW_MINI_DISPLAY: action = self.getManualAction()
         else: action = self.getNextAction(self.epsilon)
 
-        #self.epsilon *= 0.995
-        frame, reward, self.done, truncated, info = self.env.step(action)
+        self.epsilon *= EPSILON_SCALING
+        if (self.epsilon < EPSILON_MIN): self.epsilon = EPSILON_MIN
+        frame, reward, done, truncated, info = self.env.step(action)
+
+        # Stuck detection
+        if (self.last_pos == info["x_pos"]): self.stuck_time += 1
+        else: self.stuck_time = 0
+        self.last_pos = info["x_pos"]
+
+        # Workaround because done is not working
+        self.done = info["life"] < 2 or self.stuck_time > 60 * MAX_STUCK_TIME
 
         old_state = self.state
         self.state.update(self.ram)
+        if (reward < 0): reward *= 2
+
         self.q_table.update(old_state,self.state,action,self.gamma,self.alpha,reward)
         self.fitness += reward

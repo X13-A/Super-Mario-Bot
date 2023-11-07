@@ -18,7 +18,7 @@ if SHOW_MINI_DISPLAY: mini_display : MiniDisplay = MiniDisplay(ram)
 if SHOW_FPS: fps_counter : FPSCounter = FPSCounter()
 
 # Training loop
-for step in range(10000):
+for step in range(10000000000):
     training.update()
     if SHOW_MINI_DISPLAY: mini_display.update()
     if SHOW_FPS: fps_counter.update()

@@ -12,14 +12,15 @@ class QTable:
                 data = json.load(file)
             # Si le fichier est vide
             if not data:
+                print("Could not load Q-Table, creating new one (JSON file was empty)")
                 self.Q = self.initQ()
             else:
+                print("Successfully loaded Q-Table from file")
                 self.Q = data
-                print(type(self.Q))
         # Si le fichier n'existe pas ou s'il y a une autre erreur
         except (FileNotFoundError, json.JSONDecodeError):
+            print("Could not load Q-Table from JSON, creating new one")
             self.Q = self.initQ()
-                
 
     def initQ(self) : 
         Q= {}
