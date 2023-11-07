@@ -34,6 +34,7 @@ class Training():
         self.stuck_time = 0
         self.just_hit_ground = False
         self.last_mario_state = "grounded"
+        self.wins = 0
         self.run = 0
         self.run_start_time = get_time_ms()
 
@@ -72,17 +73,23 @@ class Training():
         run_duration = get_time_ms() - self.run_start_time
         self.fitness = self.last_x_pos - (run_duration//200)
         self.run_start_time = get_time_ms()
-        print(f"[Run {self.run}] Fitness: {self.fitness}/{self.max_fitness} in {ms_to_time_str(run_duration)}")
 
         self.q_table.saveQ()
         self.env.reset()
 
         if (self.fitness > self.max_fitness): self.max_fitness = self.fitness 
+        if (self.fitness > 2800): self.wins += 1
+
+        print(f"[Run {self.run}] Fitness: {self.fitness}/{self.max_fitness} in {ms_to_time_str(run_duration)} ({self.get_win_rate()}% win rate)")
+        
         self.fitness = 0
 
         self.done = False
         self.run += 1
 
+    def get_win_rate(self):
+        if self.run == 0: return 0
+        return (int) ((self.wins / self.run) * 100)
 
     def update(self):
         old_state = self.state
