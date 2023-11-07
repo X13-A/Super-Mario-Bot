@@ -6,7 +6,7 @@ class QTable:
     def __init__(self):
         self.state_values = [0,1,2,3,16]
         self.state_variables = 4
-        self.n_actions = 7
+        self.n_actions = 2
         try:
             with open('qTable.json', 'r') as file:
                 data = json.load(file)

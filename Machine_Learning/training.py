@@ -2,13 +2,19 @@ from pygame.locals import *
 import pygame
 from state import State
 from qTable import QTable
+from utils import SMB
+
 from settings import USE_KEYBOARD
 from settings import SHOW_MINI_DISPLAY
 from settings import EPSILON_START
 from settings import EPSILON_SCALING
 from settings import EPSILON_MIN
 from settings import MAX_STUCK_TIME
+from settings import SPEEDRUN_ACTIONS
+from settings import ENABLE_TRAINING
 import random
+from debug import get_time_ms
+from debug import ms_to_time_str
 
 class Training():
     def __init__(self, env, ram):
@@ -23,8 +29,13 @@ class Training():
         self.gamma = 0.9
         self.epsilon = EPSILON_START
 
-        self.last_pos = 0
+        self.last_x_pos = 0
+        self.last_y_pos = 0
         self.stuck_time = 0
+        self.just_hit_ground = False
+        self.last_mario_state = "grounded"
+        self.run = 0
+        self.run_start_time = get_time_ms()
 
     def getManualAction(self):
         action = 0
@@ -44,46 +55,67 @@ class Training():
         return action
 
     def getNextAction(self,epsilon):
-        # Si on tire un nombre aléatoire inférieur à epsilon, on explore.
-        if random.uniform(0, 1) < epsilon:
-            return self.env.action_space.sample()
+        if self.just_hit_ground:
+            return SPEEDRUN_ACTIONS[0], -1 # Don't spam jump
+        # elif self.state.obstacle < 3: # Force jump if in front of obstacle
+        #     return SPEEDRUN_ACTIONS[2], 2 - 1 # -1 because we ignore the first "DO NOTHING" action
+        elif random.uniform(0, 1) < epsilon:
+            index = random.randint(1, len(SPEEDRUN_ACTIONS)-1)
+            return SPEEDRUN_ACTIONS[index], index-1 # -1 because we ignore the first "DO NOTHING" action
         else:
             # Sinon, on exploite en choisissant l'action avec la valeur Q la plus élevée pour l'état donné.
             state_combination = self.q_table.Q[str(self.state.combination())]
-            return int(max(state_combination, key=state_combination.get))
+            index = int(max(state_combination, key=state_combination.get))
+            return SPEEDRUN_ACTIONS[index + 1], index # +1 because we ignore the first "DO NOTHING" action
 
-    
+    def reset_env(self):
+        run_duration = get_time_ms() - self.run_start_time
+        self.fitness = self.last_x_pos - (run_duration//200)
+        self.run_start_time = get_time_ms()
+        print(f"[Run {self.run}] Fitness: {self.fitness}/{self.max_fitness} in {ms_to_time_str(run_duration)}")
+
+        self.q_table.saveQ()
+        self.env.reset()
+
+        if (self.fitness > self.max_fitness): self.max_fitness = self.fitness 
+        self.fitness = 0
+
+        self.done = False
+        self.run += 1
+
+
     def update(self):
-        if self.done:
-            print("### DONE ###")
-            print("Fitness: ", self.fitness)
-            print("Epsilon: ", self.epsilon)
-            self.q_table.saveQ()
-            self.env.reset()
-            if (self.fitness > self.max_fitness): self.max_fitness = self.fitness 
-            self.fitness = 0
-            print("Max fitness: ", self.max_fitness)
-            print("")
-            self.done = False
+        old_state = self.state
+        self.state.update(self.ram)
+
+        if self.done: self.reset_env()
+
+        mario_state = SMB.get_mario_state(self.ram)
+        self.just_hit_ground = self.last_mario_state == "floating" and mario_state == "grounded"
+        self.last_mario_state = mario_state
 
         if USE_KEYBOARD and SHOW_MINI_DISPLAY: action = self.getManualAction()
-        else: action = self.getNextAction(self.epsilon)
+        else: action, action_index = self.getNextAction(self.epsilon)
 
         self.epsilon *= EPSILON_SCALING
         if (self.epsilon < EPSILON_MIN): self.epsilon = EPSILON_MIN
         frame, reward, done, truncated, info = self.env.step(action)
 
         # Stuck detection
-        if (self.last_pos == info["x_pos"]): self.stuck_time += 1
+        if (self.last_x_pos == info["x_pos"]): self.stuck_time += 1
         else: self.stuck_time = 0
-        self.last_pos = info["x_pos"]
+        self.last_x_pos = info["x_pos"]
 
+        # Reward calculation
+        if (reward < 0): reward *= 4
+        if (reward == 0): 
+            reward = -2 # Penalty when not moving right
+            if (info["y_pos"] > self.last_y_pos): 
+                reward += 1 # Little bonus when not moving but jumping
+
+        self.last_y_pos = info["y_pos"]
+        
         # Workaround because done is not working
-        self.done = info["life"] < 2 or self.stuck_time > 60 * MAX_STUCK_TIME
-
-        old_state = self.state
-        self.state.update(self.ram)
-        if (reward < 0): reward *= 2
-
-        self.q_table.update(old_state,self.state,action,self.gamma,self.alpha,reward)
-        self.fitness += reward
+        self.done = done or info["life"] < 2 or self.stuck_time > 60 * MAX_STUCK_TIME
+        if not USE_KEYBOARD and ENABLE_TRAINING and action_index != -1:
+            self.q_table.update(old_state,self.state,action_index,self.gamma,self.alpha,reward)

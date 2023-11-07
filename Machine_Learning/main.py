@@ -5,11 +5,12 @@ from debug import *
 from training import *
 from settings import *
 
+print(SIMPLE_MOVEMENT)
+
 # Setup environment
-env = gym_super_mario_bros.make('SuperMarioBros-v0', apply_api_compatibility=True, render_mode=RENDER_MODE)
+env = gym_super_mario_bros.make(f"SuperMarioBros-1-1-v0", apply_api_compatibility=True, render_mode=RENDER_MODE)
 env = JoypadSpace(env, SIMPLE_MOVEMENT)
 ram = env.env.env.env.env.env.unwrapped.ram
-
 # Setup training
 training : Training = Training(env, ram)
 
