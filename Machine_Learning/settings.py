@@ -1,9 +1,9 @@
 SHOW_FPS = False
 SHOW_MINI_DISPLAY = False
 USE_KEYBOARD = False # SHOW_MINI_DISPLAY must be enabled for inputs
-RENDER_MODE = "human" # [human | none]
-EPSILON_MIN = 0.1
-EPSILON_START = 0.1
+RENDER_MODE = "none" # [human | none]
+EPSILON_MIN = 0
+EPSILON_START = 0
 EPSILON_SCALING = 0.999995
 MAX_STUCK_TIME = 1000
 ENABLE_TRAINING = False
