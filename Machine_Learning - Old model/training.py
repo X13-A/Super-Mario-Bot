@@ -85,7 +85,7 @@ class Training():
         self.env.reset()
 
         if (self.fitness > self.max_fitness): self.max_fitness = self.fitness 
-        if (self.fitness > 2800): self.wins += 1
+        if (self.fitness > 2700): self.wins += 1
 
         print(f"[Run {self.run}] Fitness: {self.fitness}/{self.max_fitness} in {ms_to_time_str(run_duration)} ({self.get_win_rate()}% win rate)")
         
