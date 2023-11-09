@@ -5,7 +5,7 @@ import json
 class QTable:
     def __init__(self):
         self.state_values = [0,1,2,3,16]
-        self.state_variables = 4
+        self.state_variables = 5
         self.n_actions = 2
         try:
             with open('qTable.json', 'r') as file:
@@ -42,4 +42,4 @@ class QTable:
         next_combination = next_state.combination()
         next_max = max(self.Q[str(next_combination)].values())
         self.Q[str(combination)][str(action)] += alpha*(reward+gamma*next_max-self.Q[str(combination)][str(action)])
-        
+        return self.Q[str(combination)][str(action)]

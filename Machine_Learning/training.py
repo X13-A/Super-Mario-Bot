@@ -3,7 +3,8 @@ import pygame
 from state import State
 from qTable import QTable
 from utils import SMB
-
+import copy
+import time
 from settings import USE_KEYBOARD
 from settings import SHOW_MINI_DISPLAY
 from settings import EPSILON_START
@@ -12,6 +13,9 @@ from settings import EPSILON_MIN
 from settings import MAX_STUCK_TIME
 from settings import SPEEDRUN_ACTIONS
 from settings import ENABLE_TRAINING
+from settings import BUFFER_LENGTH
+from settings import STAND_STILL_PENALTY
+
 import random
 from debug import get_time_ms
 from debug import ms_to_time_str
@@ -23,11 +27,15 @@ class Training():
         self.done = True
         self.max_fitness = 0
         self.fitness = 0
-        self.state = State()
+        self.state = State(self)
         self.q_table = QTable()
         self.alpha = 0.1
         self.gamma = 0.9
         self.epsilon = EPSILON_START
+
+
+        self.last_state_action = (None, None)
+        self.state_action_buffer = []
 
         self.last_x_pos = 0
         self.last_y_pos = 0
@@ -37,6 +45,7 @@ class Training():
         self.wins = 0
         self.run = 0
         self.run_start_time = get_time_ms()
+        self.just_jumped = False
 
     def getManualAction(self):
         action = 0
@@ -58,13 +67,11 @@ class Training():
     def getNextAction(self,epsilon):
         if self.just_hit_ground:
             return SPEEDRUN_ACTIONS[0], -1 # Don't spam jump
-        # elif self.state.obstacle < 3: # Force jump if in front of obstacle
-        #     return SPEEDRUN_ACTIONS[2], 2 - 1 # -1 because we ignore the first "DO NOTHING" action
         elif random.uniform(0, 1) < epsilon:
             index = random.randint(1, len(SPEEDRUN_ACTIONS)-1)
             return SPEEDRUN_ACTIONS[index], index-1 # -1 because we ignore the first "DO NOTHING" action
         else:
-            # Sinon, on exploite en choisissant l'action avec la valeur Q la plus élevée pour l'état donné.
+            # On exploite en choisissant l'action avec la valeur Q la plus élevée pour l'état donné.
             state_combination = self.q_table.Q[str(self.state.combination())]
             index = int(max(state_combination, key=state_combination.get))
             return SPEEDRUN_ACTIONS[index + 1], index # +1 because we ignore the first "DO NOTHING" action
@@ -91,38 +98,79 @@ class Training():
         if self.run == 0: return 0
         return (int) ((self.wins / self.run) * 100)
 
-    def update(self):
-        old_state = self.state
-        self.state.update(self.ram)
+    def back_propagate_jump(self):
+        for state_action in self.state_action_buffer:
+            state = state_action[0]
+            action = state_action[1]
+            self.q_table.Q[str(state.combination())][str(action)] -= 1
 
-        if self.done: self.reset_env()
-
-        mario_state = SMB.get_mario_state(self.ram)
-        self.just_hit_ground = self.last_mario_state == "floating" and mario_state == "grounded"
-        self.last_mario_state = mario_state
-
-        if USE_KEYBOARD and SHOW_MINI_DISPLAY: action = self.getManualAction()
-        else: action, action_index = self.getNextAction(self.epsilon)
-
-        self.epsilon *= EPSILON_SCALING
-        if (self.epsilon < EPSILON_MIN): self.epsilon = EPSILON_MIN
-        frame, reward, done, truncated, info = self.env.step(action)
-
-        # Stuck detection
-        if (self.last_x_pos == info["x_pos"]): self.stuck_time += 1
+    def detect_stuck(self, pos):
+        if (self.last_x_pos == pos): self.stuck_time += 1
         else: self.stuck_time = 0
-        self.last_x_pos = info["x_pos"]
 
-        # Reward calculation
-        if (reward < 0): reward *= 4
+    def adjust_reward(self, reward, info):
+        if (reward < 0): reward *= 100
         if (reward == 0): 
-            reward = -2 # Penalty when not moving right
+            reward = STAND_STILL_PENALTY # Penalty when not moving right
             if (info["y_pos"] > self.last_y_pos): 
                 reward += 1 # Little bonus when not moving but jumping
-
-        self.last_y_pos = info["y_pos"]
-        
+        return reward
+    
+    def is_done(self, done, info):
         # Workaround because done is not working
-        self.done = done or info["life"] < 2 or self.stuck_time > 60 * MAX_STUCK_TIME
-        if not USE_KEYBOARD and ENABLE_TRAINING and action_index != -1:
-            self.q_table.update(old_state,self.state,action_index,self.gamma,self.alpha,reward)
+        return done or info["life"] < 2 or self.stuck_time > 60 * MAX_STUCK_TIME
+        
+    def fill_buffer(self, action_index):
+        if self.just_jumped and self.last_state_action[0]:
+            self.state_action_buffer.append(self.last_state_action)
+        if self.last_mario_state == "floating":
+            self.state_action_buffer.append((self.state, action_index))
+        if self.just_hit_ground:
+            self.state_action_buffer.clear()
+
+        self.last_state_action = self.state, action_index
+
+    def should_train(self, action_index):
+        return not USE_KEYBOARD and ENABLE_TRAINING and action_index != -1
+
+    def set_jump_state(self):
+        mario_state = SMB.get_mario_state(self.ram)
+        self.just_hit_ground = self.last_mario_state == "floating" and mario_state == "grounded"
+        self.just_jumped = self.last_mario_state == "grounded" and mario_state == "floating"
+        self.last_mario_state = mario_state
+
+    def update(self):
+        old_state = copy.copy(self.state)
+        self.state.update(self.ram)
+        if self.done: self.reset_env()
+        self.set_jump_state()
+
+        # Get next action
+        if USE_KEYBOARD and SHOW_MINI_DISPLAY: action = self.getManualAction()
+        else: action, action_index = self.getNextAction(self.epsilon)
+        self.epsilon *= EPSILON_SCALING
+        if (self.epsilon < EPSILON_MIN): self.epsilon = EPSILON_MIN
+
+        frame, reward, done, truncated, info = self.env.step(action)
+
+        self.detect_stuck(info["x_pos"])
+        reward = self.adjust_reward(reward, info)
+
+        self.last_x_pos = info["x_pos"]
+        self.last_y_pos = info["y_pos"]
+
+        self.done = self.is_done(done, info)
+        self.fill_buffer(action_index)
+        
+        if self.should_train(action_index):
+            self.q_table.update(
+                old_state,
+                self.state,
+                action_index,
+                self.gamma,
+                self.alpha,
+                reward
+            )
+            if reward < STAND_STILL_PENALTY:
+                self.back_propagate_jump()
+
