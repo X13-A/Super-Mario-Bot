@@ -4,6 +4,7 @@ from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
 from debug import *
 from training import *
 from settings import *
+import time
 
 print(SIMPLE_MOVEMENT)
 
@@ -20,6 +21,7 @@ if SHOW_FPS: fps_counter : FPSCounter = FPSCounter()
 
 # Training loop
 while True:
+    # time.sleep(1/30)
     training.update()
     if SHOW_MINI_DISPLAY: mini_display.update()
     if SHOW_FPS: fps_counter.update()

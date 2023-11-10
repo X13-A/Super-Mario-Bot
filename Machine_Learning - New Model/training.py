@@ -4,7 +4,6 @@ from state import State
 from qTable import QTable
 from utils import SMB
 import copy
-import time
 from settings import USE_KEYBOARD
 from settings import SHOW_MINI_DISPLAY
 from settings import EPSILON_START
@@ -82,6 +81,8 @@ class Training():
         self.run_start_time = get_time_ms()
 
         self.q_table.saveQ()
+        if self.run % 100 == 0:
+            self.q_table.backupQ()
         self.env.reset()
 
         if (self.fitness > self.max_fitness): self.max_fitness = self.fitness 
@@ -99,17 +100,25 @@ class Training():
         return (int) ((self.wins / self.run) * 100)
 
     def back_propagate_jump(self):
+        state_action_set = {}
+
         for state_action in self.state_action_buffer:
-            state = state_action[0]
-            action = state_action[1]
-            self.q_table.Q[str(state.combination())][str(action)] -= 1
+            state_action_str = str(state_action)
+            if not state_action_set.get(state_action_str):
+                state_action_set[state_action_str] = state_action
+        
+        for key in state_action_set:
+            state = state_action_set[key][0]
+            action = state_action_set[key][1]
+            self.q_table.Q[str(state)][str(action)] -= 1
 
     def detect_stuck(self, pos):
         if (self.last_x_pos == pos): self.stuck_time += 1
         else: self.stuck_time = 0
 
     def adjust_reward(self, reward, info):
-        if (reward < 0): reward *= 100
+        if (reward < -1): reward *= 10
+        if (reward == 5): reward *= 10 #TODO: back propagate to all level when winnning
         if (reward == 0): 
             reward = STAND_STILL_PENALTY # Penalty when not moving right
             if (info["y_pos"] > self.last_y_pos): 
@@ -124,11 +133,11 @@ class Training():
         if self.just_jumped and self.last_state_action[0]:
             self.state_action_buffer.append(self.last_state_action)
         if self.last_mario_state == "floating":
-            self.state_action_buffer.append((self.state, action_index))
+            self.state_action_buffer.append((self.state.combination(), action_index))
         if self.just_hit_ground:
             self.state_action_buffer.clear()
 
-        self.last_state_action = self.state, action_index
+        self.last_state_action = self.state.combination(), action_index
 
     def should_train(self, action_index):
         return not USE_KEYBOARD and ENABLE_TRAINING and action_index != -1
@@ -144,7 +153,6 @@ class Training():
         self.state.update(self.ram)
         if self.done: self.reset_env()
         self.set_jump_state()
-
         # Get next action
         if USE_KEYBOARD and SHOW_MINI_DISPLAY: action = self.getManualAction()
         else: action, action_index = self.getNextAction(self.epsilon)
@@ -160,9 +168,9 @@ class Training():
         self.last_y_pos = info["y_pos"]
 
         self.done = self.is_done(done, info)
-        self.fill_buffer(action_index)
         
         if self.should_train(action_index):
+            self.fill_buffer(action_index)
             self.q_table.update(
                 old_state,
                 self.state,

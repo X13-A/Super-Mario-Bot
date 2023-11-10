@@ -1,10 +1,12 @@
 import numpy as np
 from itertools import product
 import json
+from settings import VISION_RANGE
+import os
 
 class QTable:
     def __init__(self):
-        self.state_values = [0,1,2,3,16]
+        self.state_values = [i for i in range(VISION_RANGE+1)] + [16]
         self.state_variables = 5
         self.n_actions = 2
         try:
@@ -33,10 +35,34 @@ class QTable:
                 Q[str(state_combination)][str(action)] = 0
         return Q
     
-    def saveQ(self):
+    def saveQ(self, filename = "qTable.json"):
         with open('qTable.json', 'w') as file:
             json.dump(self.Q, file)
-            
+    
+    def backupQ(self):
+        filename = "qTable_backup"
+        backup_folder = 'backup'  # Define the backup folder name
+        os.makedirs(backup_folder, exist_ok=True)  # Create the backup folder if it doesn't exist
+
+        # Count the number of files in the backup directory
+        num_files = len([name for name in os.listdir(backup_folder) if os.path.isfile(os.path.join(backup_folder, name))])
+
+        # Define the new filename with the count number
+        backup_filename = f"{filename}_{num_files}.json"
+
+        # Construct the full path for the new file
+        full_path = os.path.join(backup_folder, backup_filename)
+
+        # Loop until an unoccupied file index is found
+        while os.path.isfile(full_path):
+            file_index += 1
+            backup_filename = f"{filename}_{file_index}.json"
+            full_path = os.path.join(backup_folder, backup_filename)
+
+        # Write the Q-table to the file
+        with open(full_path, 'w') as file:
+            json.dump(self.Q, file)
+
     def update(self,state,next_state,action,gamma,alpha,reward):
         combination = state.combination()
         next_combination = next_state.combination()

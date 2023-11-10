@@ -1,6 +1,7 @@
 from utils import StaticTileType
 import numpy as np
 from utils import SMB
+from settings import VISION_RANGE
 
 class State:
     def __init__(self, training):
@@ -18,7 +19,7 @@ class State:
         mario_row = tiles[mario_pos[0], mario_pos[1]:]
         obstacles = np.where(mario_row == StaticTileType.Fake)[0]
         
-        if (obstacles.size and obstacles[0] <= 3): return obstacles[0]
+        if (obstacles.size and obstacles[0] <= VISION_RANGE): return obstacles[0]
         return tiles.shape[1]
 
     def getHoleDist(self, tiles, mario_pos):
@@ -28,7 +29,7 @@ class State:
         bottom_row = tiles[-1, mario_pos[1]:]
         holes = np.where(bottom_row == StaticTileType.Empty)[0]
 
-        if (holes.size and holes[0] <= 3): 
+        if (holes.size and holes[0] <= VISION_RANGE): 
             return holes[0]
         return tiles.shape[1]
     
@@ -41,9 +42,9 @@ class State:
         closest_enemy = min(forward_enemies, key=lambda e: (e.location.x - mario_x_in_level)**2 + (e.location.y - mario_y_in_level)**2)
         dx = round((closest_enemy.location.x - mario_x_in_level)/16)
         dy = round((closest_enemy.location.y - mario_y_in_level)/16)
-        if dx>3 :
+        if dx>VISION_RANGE :
             dx = 16
-        if dy>3 :
+        if dy>VISION_RANGE :
             dy = 16
         
         return (dx,dy)
