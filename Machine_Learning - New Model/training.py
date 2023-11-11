@@ -149,8 +149,6 @@ class Training():
         self.last_mario_state = mario_state
 
     def update(self):
-        old_state = copy.copy(self.state)
-        self.state.update(self.ram)
         if self.done: self.reset_env()
         self.set_jump_state()
         # Get next action
@@ -159,15 +157,25 @@ class Training():
         self.epsilon *= EPSILON_SCALING
         if (self.epsilon < EPSILON_MIN): self.epsilon = EPSILON_MIN
 
-        frame, reward, done, truncated, info = self.env.step(action)
+        old_state = copy.copy(self.state)
+        
+        total_reward = 0
+        
+        while True :
+            frame, reward, done, truncated, info = self.env.step(action)
 
-        self.detect_stuck(info["x_pos"])
-        reward = self.adjust_reward(reward, info)
+            
+            self.state.update(self.ram)
+            self.detect_stuck(info["x_pos"])
+            total_reward += self.adjust_reward(reward, info)
 
-        self.last_x_pos = info["x_pos"]
-        self.last_y_pos = info["y_pos"]
+            self.last_x_pos = info["x_pos"]
+            self.last_y_pos = info["y_pos"]
 
-        self.done = self.is_done(done, info)
+            self.done = self.is_done(done, info)
+            
+            if (old_state.combination()!=self.state.combination()) or self.done or not self.should_train() :
+                break
         
         if self.should_train(action_index):
             self.fill_buffer(action_index)
@@ -177,8 +185,8 @@ class Training():
                 action_index,
                 self.gamma,
                 self.alpha,
-                reward
+                total_reward
             )
-            if reward < STAND_STILL_PENALTY:
+            if total_reward < STAND_STILL_PENALTY:
                 self.back_propagate_jump()
 
