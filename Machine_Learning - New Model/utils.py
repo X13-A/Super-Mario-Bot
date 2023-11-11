@@ -161,6 +161,8 @@ class SMB(object):
         Player_Y_Pos_On_Screen = 0xCE
         Player_Vertical_Screen_Position = 0xB5
 
+        Player_State = 0x001D
+
     @classmethod
     def get_enemy_locations(cls, ram: np.ndarray):
         # We only care about enemies that are drawn. Others may?? exist
@@ -194,6 +196,12 @@ class SMB(object):
                 enemies.append(e)
 
         return enemies
+
+    @classmethod
+    def get_mario_state(cls, ram: np.ndarray):
+        mario_state = ram[cls.RAMLocations.Player_State.value]
+        if (mario_state == 0x00): return "grounded"
+        else: return "floating"
 
     @classmethod
     def get_mario_location_in_level(cls, ram: np.ndarray) -> Point:
@@ -327,5 +335,7 @@ class SMB(object):
                 return StaticTileType.Fake.value
 
         return ram[addr]
+    
+        
 
         

@@ -3,6 +3,8 @@ import sys
 from utils import ColorMap
 from utils import SMB
 import time
+from datetime import datetime
+from datetime import timedelta
 
 class MiniDisplay():
     def __init__(self, ram):
@@ -44,3 +46,13 @@ class FPSCounter():
             print(f"Average FPS: {fps:.2f}")
             self.frame_count = 0
             self.last_time = current_time
+
+def get_time_ms():
+    return int(datetime.now().timestamp() * 1000)
+
+def ms_to_time_str(milliseconds):
+    delta = timedelta(milliseconds=milliseconds)
+    hours, remainder = divmod(delta.total_seconds(), 3600)
+    minutes, seconds = divmod(remainder, 60)
+    time_str = '{:02}:{:02}:{:02}'.format(int(hours), int(minutes), int(seconds))
+    return time_str
