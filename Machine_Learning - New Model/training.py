@@ -31,10 +31,6 @@ class Training():
         self.alpha = 0.1
         self.gamma = 0.9
         self.epsilon = EPSILON_START
-        self.change_state = True
-        self.action = 0
-        self.action_index = 0
-        self.total_reward = 0
 
         self.last_state_action = (None, None)
         self.state_action_buffer = []
@@ -68,15 +64,15 @@ class Training():
 
     def getNextAction(self,epsilon):
         if self.just_hit_ground:
-            return SPEEDRUN_ACTIONS[0], -1 # Don't spam jump'''
-        elif random.uniform(0, 1) < epsilon:
-            index = random.randint(1, len(SPEEDRUN_ACTIONS)-1)
-            return SPEEDRUN_ACTIONS[index], index-1 # -1 because we ignore the first "DO NOTHING" action
+            return SPEEDRUN_ACTIONS[0], 0 # Don't spam jump'''
+        if random.uniform(0, 1) < epsilon:
+            index = random.randint(0, len(SPEEDRUN_ACTIONS)-1)
+            return SPEEDRUN_ACTIONS[index], index # -1 because we ignore the first "DO NOTHING" action
         else:
             # On exploite en choisissant l'action avec la valeur Q la plus élevée pour l'état donné.
             state_combination = self.q_table.Q[str(self.state.combination())]
             index = int(max(state_combination, key=state_combination.get))
-            return SPEEDRUN_ACTIONS[index + 1], index # +1 because we ignore the first "DO NOTHING" action
+            return SPEEDRUN_ACTIONS[index], index # +1 because we ignore the first "DO NOTHING" action
 
     def reset_env(self):
         run_duration = get_time_ms() - self.run_start_time
@@ -132,18 +128,18 @@ class Training():
         # Workaround because done is not working
         return done or info["life"] < 2 or self.stuck_time > 60 * MAX_STUCK_TIME
         
-    def fill_buffer(self):
+    def fill_buffer(self, action_index):
         if self.just_jumped and self.last_state_action[0]:
             self.state_action_buffer.append(self.last_state_action)
         if self.last_mario_state == "floating":
-            self.state_action_buffer.append((self.state.combination(), self.action_index))
+            self.state_action_buffer.append((self.state.combination(), action_index))
         if self.just_hit_ground:
             self.state_action_buffer.clear()
 
-        self.last_state_action = self.state.combination(), self.action_index
+        self.last_state_action = self.state.combination(), action_index
 
     def should_train(self):
-        return not USE_KEYBOARD and ENABLE_TRAINING and self.action_index != -1 and self.change_state
+        return not USE_KEYBOARD and ENABLE_TRAINING
 
     def set_jump_state(self):
         mario_state = SMB.get_mario_state(self.ram)
@@ -154,46 +150,39 @@ class Training():
     def update(self):
         if self.done: 
             self.reset_env()
-            self.change_state = True
         self.set_jump_state()
         
         # Get next action
-        if USE_KEYBOARD and SHOW_MINI_DISPLAY: self.action = self.getManualAction()
+        if USE_KEYBOARD and SHOW_MINI_DISPLAY: 
+            action = self.getManualAction()
         
-        elif self.change_state :
-            self.action, self.action_index = self.getNextAction(self.epsilon)
+        else : 
+            action, action_index = self.getNextAction(self.epsilon)
             self.epsilon *= EPSILON_SCALING
             if (self.epsilon < EPSILON_MIN): self.epsilon = EPSILON_MIN
         
-        else : self.total_reward = 0
-        
-
         old_state = copy.copy(self.state)
-        
-        frame, reward, done, truncated, info = self.env.step(self.action)
-
-        
+        frame, reward, done, truncated, info = self.env.step(action)
         self.state.update(self.ram)
-        
-        self.change_state = self.state.combination()!=old_state.combination()
+
         self.detect_stuck(info["x_pos"])
-        self.total_reward += self.adjust_reward(reward, info)
+        reward = self.adjust_reward(reward, info)
 
         self.last_x_pos = info["x_pos"]
         self.last_y_pos = info["y_pos"]
 
         self.done = self.is_done(done, info) 
         
-        if self.should_train():
-            self.fill_buffer()
+        if self.should_train() and action_index != -1:
+            self.fill_buffer(action_index)
             self.q_table.update(
                 old_state,
                 self.state,
-                self.action_index,
+                action_index,
                 self.gamma,
                 self.alpha,
-                self.total_reward
+                reward
             )
-            if self.total_reward < STAND_STILL_PENALTY:
+            if reward < STAND_STILL_PENALTY:
                 self.back_propagate_jump()
 
