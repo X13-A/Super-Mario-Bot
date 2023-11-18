@@ -29,6 +29,7 @@ class State:
         bottom_row = tiles[-1, mario_pos[1]:]
         holes = np.where(bottom_row == StaticTileType.Empty)[0]
 
+        # TODO: check only hole
         if (holes.size and holes[0] <= VISION_RANGE): 
             return holes[0]
         return tiles.shape[1]

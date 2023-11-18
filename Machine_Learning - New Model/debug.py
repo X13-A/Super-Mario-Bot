@@ -5,6 +5,7 @@ from utils import SMB
 import time
 from datetime import datetime
 from datetime import timedelta
+from settings import AVERAGE_FPS_CALCULATION_TIME
 
 class MiniDisplay():
     def __init__(self, ram):
@@ -41,7 +42,7 @@ class FPSCounter():
         self.frame_count += 1
         current_time = time.time()
         elapsed_time = current_time - self.last_time
-        if elapsed_time > 1.0:  # More than 1 second has passed
+        if elapsed_time > AVERAGE_FPS_CALCULATION_TIME:  # More than 1 second has passed
             fps = self.frame_count / elapsed_time
             print(f"Average FPS: {fps:.2f}")
             self.frame_count = 0
