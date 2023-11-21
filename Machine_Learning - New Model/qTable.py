@@ -54,6 +54,7 @@ class QTable:
         full_path = os.path.join(backup_folder, backup_filename)
 
         # Loop until an unoccupied file index is found
+        file_index = 0
         while os.path.isfile(full_path):
             file_index += 1
             backup_filename = f"{filename}_{file_index}.json"

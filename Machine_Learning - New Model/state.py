@@ -23,10 +23,10 @@ class State:
         return tiles.shape[1]
 
     def getHoleDist(self, tiles, mario_pos):
-        if (mario_pos[0] >= tiles.shape[0] or mario_pos[1] >= tiles.shape[1]): return tiles.shape[1]
-        if (mario_pos[0] < 0 or mario_pos[1] < 0): return tiles.shape[1]
+        if (mario_pos[1] >= tiles.shape[1]): return tiles.shape[1]
+        if (mario_pos[1] < 0): return tiles.shape[1]
         
-        bottom_row = tiles[-1, mario_pos[1]:]
+        bottom_row = tiles[-1, (mario_pos[1]):]
         holes = np.where(bottom_row == StaticTileType.Empty)[0]
 
         # TODO: check only hole

@@ -139,7 +139,6 @@ class SMB(object):
     xbins = list(range(16, resolution.width, 16))
     ybins = list(range(16, resolution.height, 16))
 
-
     @unique
     class RAMLocations(Enum):
         # Since the max number of enemies on the screen is 5, the addresses for enemies are
@@ -151,8 +150,8 @@ class SMB(object):
         Enemy_X_Position_On_Screen = 0x87
         Enemy_Y_Position_On_Screen = 0xCF
 
-        Player_X_Postion_In_Level       = 0x06D
-        Player_X_Position_On_Screen     = 0x086
+        Player_X_Postion_In_Level = 0x06D
+        Player_X_Position_On_Screen = 0x086
 
         Player_X_Position_Screen_Offset = 0x3AD
         Player_Y_Position_Screen_Offset = 0x3B8
@@ -231,7 +230,6 @@ class SMB(object):
         current_offset = ram[cls.RAMLocations.Player_X_Position_Screen_Offset.value]
         new_offset = (current_offset + pixels) % 256  # Modulo 256 to keep it within byte limits
         ram[cls.RAMLocations.Player_X_Position_Screen_Offset.value] = new_offset
-
 
     @classmethod
     def get_mario_score(cls, ram: np.ndarray) -> int:

@@ -10,9 +10,9 @@ from settings import AVERAGE_FPS_CALCULATION_TIME
 class MiniDisplay():
     def __init__(self, ram):
         self.ram = ram
+        pygame.init()
         self.screen = pygame.display.set_mode((256, 240))
         pygame.display.set_caption('TileVision')
-        pygame.init()
 
     def draw_tiles(self):
         tiles = SMB.get_tiles_array(self.ram)
@@ -23,10 +23,11 @@ class MiniDisplay():
                 pygame.draw.rect(self.screen, color, (col * 16, row * 16, 16, 16))
 
     def check_events(self):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+
 
     def update(self):
         self.draw_tiles()

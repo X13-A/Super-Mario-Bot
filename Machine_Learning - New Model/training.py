@@ -4,8 +4,6 @@ from state import State
 from qTable import QTable
 from utils import SMB
 import copy
-from settings import USE_KEYBOARD
-from settings import SHOW_MINI_DISPLAY
 from settings import EPSILON_START
 from settings import EPSILON_SCALING
 from settings import EPSILON_MIN
@@ -17,10 +15,73 @@ from settings import FRAMES_BEFORE_UPDATE
 from settings import IDLE_ACTION
 from settings import GAMMA
 from settings import ALPHA
-
+from settings import DEATH_PENALTY
+import json
 import random
 from debug import get_time_ms
-from debug import ms_to_time_str
+
+class StateActionBuffer():
+    def __init__(self, jump_frame):
+        self.buffer = []
+        self.jump_frame = jump_frame
+        self.land_frame = -1
+
+    def set_land_frame(self, land_frame):
+        self.land_frame = land_frame
+
+    def append(self, state_action):
+        self.buffer.append(state_action)
+    
+    def is_expired(self, frame, lifespan):
+        return self.land_frame != -1 and frame - self.land_frame > lifespan
+
+    def get_buffer(self):
+        return self.buffer
+
+
+class LatestBufferTracker():
+    def __init__(self, lifespan):
+        self.buffers = []
+        self.lifespan = lifespan
+        self.last_update_frame = 0
+
+    def create_buffer(self, jump_frame):
+        self.buffers.append(StateActionBuffer(jump_frame))
+
+    def get_latest_buffer(self, frame):
+        n_buffers = len(self.buffers)
+        if n_buffers == 0: return None
+
+        # Get the most recent buffer that is old enough 
+        search_start = frame - self.lifespan
+
+        for i in range(n_buffers - 1, -1, -1):
+            buffer = self.buffers[i]
+            if buffer.jump_frame <= search_start: 
+                return buffer
+
+        return self.buffers[n_buffers - 1]
+    
+    def reset(self):
+        self.buffers.clear()
+
+    def update(self, frame, state_action, last_jump_frame, last_hit_ground_frame):
+        # Update all buffers
+        if last_jump_frame > self.last_update_frame:
+            self.buffers.append(StateActionBuffer(last_jump_frame))
+
+        for buffer in self.buffers:
+            buffer.append(state_action)
+            if(last_hit_ground_frame > self.last_update_frame and buffer.land_frame == -1): 
+                buffer.set_land_frame(last_hit_ground_frame)
+        
+        # Filter expired buffers
+        temp = len(self.buffers)
+        self.buffers = [buffer for buffer in self.buffers if not buffer.is_expired(frame, self.lifespan)]
+        deleted = temp - len(self.buffers)
+
+        self.last_update_frame = frame
+
 
 class Training():
     def __init__(self, env, ram):
@@ -36,18 +97,22 @@ class Training():
         self.epsilon = EPSILON_START
 
         self.last_state_action = (None, None)
-        self.state_action_buffer = []
+        self.state_action_buffer = LatestBufferTracker(FRAMES_BEFORE_UPDATE)
 
         self.last_x_pos = 0
         self.last_y_pos = 0
         self.stuck_time = 0
-        self.just_hit_ground = False
         self.last_mario_state = "grounded"
         self.frame = 0
         self.wins = 0
         self.run = 0
         self.run_start_time = get_time_ms()
+        
+        self.just_hit_ground = False
         self.just_jumped = False
+        self.last_hit_ground_frame = -1
+        self.last_jump_frame = -1
+
         self.active_action = (0, 0) # (action, index)
         self.last_state = None
         self.active_reward = 0
@@ -80,22 +145,36 @@ class Training():
             index = int(max(state_combination, key=state_combination.get))
             return SPEEDRUN_ACTIONS[index], index
 
+    def log_highscore(self):
+        file_path = 'score_graph.json'
+        with open(file_path, 'r') as file:
+            data = json.load(file)
+        
+        new_entry = {"run": len(data), "fitness": int(self.fitness),"max_fitness": int(self.max_fitness)}
+        data.append(new_entry)
+        with open(file_path, 'w') as file:
+            json.dump(data, file, indent=4)
+
+
     def reset_env(self):
+        self.state_action_buffer.reset()
         self.frame = 0
         self.active_reward = 0
-        run_duration = get_time_ms() - self.run_start_time
-        self.fitness = self.last_x_pos - (run_duration//200)
+        self.fitness = self.last_x_pos # - (self.frame//10)
         self.run_start_time = get_time_ms()
 
         self.q_table.saveQ()
-        if self.run % 100 == 0:
+        if self.run % 200 == 0:
             self.q_table.backupQ()
         self.env.reset()
 
         if (self.fitness > self.max_fitness): self.max_fitness = self.fitness 
         if (self.fitness > 2800): self.wins += 1
 
-        print(f"[Run {self.run}] Fitness: {self.fitness}/{self.max_fitness} in {ms_to_time_str(run_duration)} ({self.get_win_rate()}% win rate)")
+        if self.run > 0:
+            self.log_highscore()
+
+        print(f"[Run {self.run}] Fitness: {self.fitness}/{self.max_fitness} ({self.wins} wins)")
         
         self.fitness = 0
 
@@ -111,7 +190,10 @@ class Training():
     def back_propagate_jump(self):
         state_action_set = {}
 
-        for state_action in self.state_action_buffer:
+        latest_buffer = self.state_action_buffer.get_latest_buffer(self.frame)
+        if not latest_buffer: return
+        
+        for state_action in latest_buffer.get_buffer():
             state_action_str = str(state_action)
             if not state_action_set.get(state_action_str):
                 state_action_set[state_action_str] = state_action
@@ -126,37 +208,36 @@ class Training():
         else: self.stuck_time = 0
 
     def adjust_reward(self, reward, info):
-        if (reward < -1): reward *= 10
+        if (reward == -15): reward = DEATH_PENALTY
         if (reward == 5): reward *= 10 #TODO: back propagate to all level when winnning
-        if (reward == 0): 
+        if (reward == 0):
             reward = STAND_STILL_PENALTY # Penalty when not moving right
             if (info["y_pos"] > self.last_y_pos): 
                 reward += 1 # Little bonus when not moving but jumping
         return reward
     
     def is_done(self, done, info):
-        # Workaround because done is not working
+        # Workaround because done is not always working
         return done or info["life"] < 2 or self.stuck_time > 60 * MAX_STUCK_TIME
         
     def fill_buffer(self, action_index):
-        if self.just_jumped and self.last_state_action[0]:
-            self.state_action_buffer.append(self.last_state_action)
-        if self.last_mario_state == "floating":
-            self.state_action_buffer.append((self.state.combination(), action_index))
-        if self.just_hit_ground:
-            self.state_action_buffer.clear()
+        # # TODO: Fix when repeating jump
+        # if self.just_jumped and self.last_state_action[0]:
+        #     self.state_action_buffer.update(self.frame, self.last_state_action, self.frame)
+        # if self.just_hit_ground:
+        #     self.state_action_buffer.clear()
+        # if self.last_mario_state == "floating" or self.frames_since_hit_ground < 10:
+        #     self.state_action_buffer.append((self.state.combination(), action_index))
 
-        self.last_state_action = self.state.combination(), action_index
+        # self.last_state_action = self.state.combination(), action_index
+        pass
 
-    def should_train(self, action_index):
-        res = not USE_KEYBOARD and ENABLE_TRAINING and self.frame % FRAMES_BEFORE_UPDATE == 0
+    def fill_buffers(self):
+        state_action = (self.last_state.combination(), self.active_action[1])
+        self.state_action_buffer.update(self.frame, state_action, self.last_jump_frame, self.last_hit_ground_frame)
 
-        self.must_train_asap = False
-        if res and action_index == -1:
-            self.must_train_asap = True
-            return False
-
-        return res
+    def should_train(self):
+        return ENABLE_TRAINING and (self.done or self.frame % FRAMES_BEFORE_UPDATE == 0)
 
     def set_jump_state(self):
         mario_state = SMB.get_mario_state(self.ram)
@@ -164,51 +245,59 @@ class Training():
         self.just_jumped = self.last_mario_state == "grounded" and mario_state == "floating"
         self.last_mario_state = mario_state
 
+        if self.just_hit_ground:
+            self.last_hit_ground_frame = self.frame
+        if self.just_jumped:
+            self.last_jump_frame = self.frame - 1
+
     def update(self):
         if self.done: 
             self.reset_env()
-
         self.set_jump_state()
+
         action, action_index = self.active_action[0], self.active_action[1]
         if self.just_hit_ground:
             action, action_index = IDLE_ACTION, -1 # Don't spam jump
-        if USE_KEYBOARD and SHOW_MINI_DISPLAY:
-            action, action_index = self.getManualAction(), -1
             
         frame, reward, done, truncated, info = self.env.step(action)
 
         self.detect_stuck(info["x_pos"])
-        reward = self.adjust_reward(reward, info)
-        self.active_reward += reward
+
+        # Set reward
+        reward = self.adjust_reward(reward, info)        
+        if (reward == DEATH_PENALTY):
+            self.active_reward = reward
+        else: self.active_reward += reward
 
         self.last_x_pos = info["x_pos"]
         self.last_y_pos = info["y_pos"]
-
         self.done = self.is_done(done, info) 
         
-        # Might seem unnecessary but it really is
+        # Might seem unnecessary but it really is (bad architecture)
         must_train_asap_temp = self.must_train_asap
-        should_train = self.should_train(action_index)
+        should_train = self.should_train()
 
         if must_train_asap_temp or should_train:
-            train_action, action_index = self.getNextAction(self.epsilon)
             self.epsilon *= EPSILON_SCALING
             if (self.epsilon < EPSILON_MIN): self.epsilon = EPSILON_MIN
 
-            self.active_action = (train_action, action_index)
+            # Update QTable
+            self.fill_buffers()
             self.state.update(self.ram)
-
-            self.fill_buffer(action_index)
             self.q_table.update(
                 self.last_state,
                 self.state,
-                action_index,
+                self.active_action[1],
                 self.gamma,
                 self.alpha,
                 self.active_reward
             )
 
-            if self.active_reward < STAND_STILL_PENALTY:
+            # Make next action
+            train_action, action_index = self.getNextAction(self.epsilon)
+            self.active_action = (train_action, action_index)
+
+            if self.active_reward == DEATH_PENALTY:
                 self.back_propagate_jump()
 
             self.last_state = copy.copy(self.state)
