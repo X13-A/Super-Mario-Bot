@@ -5411,22 +5411,4 @@
     },
     {
         "run": 1082,
-        "fitness": 539,
-        "max_fitness": 2626
-    },
-    {
-        "run": 1083,
-        "fitness": 0,
-        "max_fitness": 2626
-    },
-    {
-        "run": 1084,
-        "fitness": 0,
-        "max_fitness": 2626
-    },
-    {
-        "run": 1085,
-        "fitness": 313,
-        "max_fitness": 2626
-    }
-]
+        "fitness": 539

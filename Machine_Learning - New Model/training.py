@@ -16,6 +16,8 @@ from settings import IDLE_ACTION
 from settings import GAMMA
 from settings import ALPHA
 from settings import DEATH_PENALTY
+from settings import WIN_SCORE
+from settings import SCORES_STORAGE_PATH
 import json
 import random
 from debug import get_time_ms
@@ -89,6 +91,7 @@ class Training():
         self.ram = ram
         self.done = True
         self.max_fitness = 0
+        self.load_max_fitness()
         self.fitness = 0
         self.state = State(self)
         self.q_table = QTable()
@@ -105,7 +108,9 @@ class Training():
         self.last_mario_state = "grounded"
         self.frame = 0
         self.wins = 0
+        self.load_win_number()
         self.run = 0
+        self.load_run_number()
         self.run_start_time = get_time_ms()
         
         self.just_hit_ground = False
@@ -116,7 +121,28 @@ class Training():
         self.active_action = (0, 0) # (action, index)
         self.last_state = None
         self.active_reward = 0
-        self.must_train_asap = False
+
+    def load_win_number(self):
+        with open(SCORES_STORAGE_PATH, 'r') as file:
+            data = json.load(file)
+
+        for entry in data:
+            if entry["fitness"] > WIN_SCORE:
+                self.wins += 1
+
+    def load_max_fitness(self):
+        with open(SCORES_STORAGE_PATH, 'r') as file:
+            data = json.load(file)
+
+        for entry in data:
+            if entry["max_fitness"] > self.max_fitness:
+                self.max_fitness = entry["max_fitness"]
+
+    def load_run_number(self):
+        with open(SCORES_STORAGE_PATH, 'r') as file:
+            data = json.load(file)
+
+        self.run = len(data)
 
     def getManualAction(self):
         action = 0
@@ -146,15 +172,13 @@ class Training():
             return SPEEDRUN_ACTIONS[index], index
 
     def log_highscore(self):
-        file_path = 'score_graph.json'
-        with open(file_path, 'r') as file:
+        with open(SCORES_STORAGE_PATH, 'r') as file:
             data = json.load(file)
         
         new_entry = {"run": len(data), "fitness": int(self.fitness),"max_fitness": int(self.max_fitness)}
         data.append(new_entry)
-        with open(file_path, 'w') as file:
+        with open(SCORES_STORAGE_PATH, 'w') as file:
             json.dump(data, file, indent=4)
-
 
     def reset_env(self):
         self.state_action_buffer.reset()
@@ -273,11 +297,7 @@ class Training():
         self.last_y_pos = info["y_pos"]
         self.done = self.is_done(done, info) 
         
-        # Might seem unnecessary but it really is (bad architecture)
-        must_train_asap_temp = self.must_train_asap
-        should_train = self.should_train()
-
-        if must_train_asap_temp or should_train:
+        if self.should_train():
             self.epsilon *= EPSILON_SCALING
             if (self.epsilon < EPSILON_MIN): self.epsilon = EPSILON_MIN
 
