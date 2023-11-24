@@ -1,5 +1,5 @@
 # Machine Learning E4
-AI experiments, including YOLO image detection and a Super Mario Bros AI model based on Q-Learning
+AI experiments, including YOLO image detection and a Super Mario Bros AI model based on Q-Learning. 
 For more details about the project, read the .pdf file (french only)
 
 ### Try out our AI model for Super Mario Bros:
