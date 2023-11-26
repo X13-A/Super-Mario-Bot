@@ -14,3 +14,9 @@ For more details about the project, read the .pdf file (french only)
 - When exiting at the moment the QTable is saved (when the game restarts), there's a risk of JSON data corruption. Don't worry if this happens, there's a system in place to periodically save the QTable, and you can find the backups in the "Backup" folder.
 - The same issue may occur with data related to graphs. There's no backup system for this, so if you care about this data, make sure to save them before exiting the training.
 - If the JSON file with the graph data ends up corrupted, delete its contents and leave just an empty array like this: "[]".
+
+### Folders:
+- Data_Generator is used to generate data for YOLO
+- Media_Generator is used to split spritesheets into multiple images
+- Yolo contains the code used for our detection experiments
+- Machine_Learning_Model contains everything related to the final product
