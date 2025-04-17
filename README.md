@@ -1,6 +1,9 @@
-# Machine Learning E4
+# Super Mario Bot
 AI experiments, including YOLO image detection and a Super Mario Bros AI model based on Q-Learning. 
 For more details about the project, read the .pdf file (french only)
+
+Or look at the project page on my portfolio :
+https://www.notion.so/alexfoulon/Super-Mario-Bot-1a5d7ffc137f80fe8a40f2efc1fe54c2
 
 ### Try out our AI model for Super Mario Bros:
 - Open the Machine_Learning_Model folder
